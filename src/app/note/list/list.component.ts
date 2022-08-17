@@ -8,6 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListComponent implements OnInit {
 
+  defaultColor: string = 'note-grey';
+  redColor: string = 'note-red';
+
   constructor() { }
 
   ngOnInit(): void {

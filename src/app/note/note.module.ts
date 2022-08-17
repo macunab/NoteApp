@@ -4,6 +4,8 @@ import { MaterialModule } from '../material/material.module';
 import { HomeComponent } from './home/home.component';
 import { NoteRoutingModule } from './note-routing.module';
 import { ListComponent } from './list/list.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 
 
@@ -14,6 +16,7 @@ import { ListComponent } from './list/list.component';
   ],
   imports: [
     CommonModule,
+    FlexLayoutModule,
     MaterialModule,
     NoteRoutingModule
   ]

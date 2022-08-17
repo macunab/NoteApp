@@ -2,3 +2,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.note-color {
+    height: 5px;
+    width: 100%;
+    }
+
+.note-grey {
+    background: grey;
+}
+
+.note-red {
+    background: red;
+}
