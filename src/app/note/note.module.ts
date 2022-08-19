@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { NoteRoutingModule } from './note-routing.module';
 import { ListComponent } from './list/list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { CreateNoteComponent } from './create-note/create-note.component';
 
 
 
@@ -12,7 +13,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [
     HomeComponent,
-    ListComponent
+    ListComponent,
+    CreateNoteComponent
   ],
   imports: [
     CommonModule,
