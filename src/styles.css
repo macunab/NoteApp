@@ -26,3 +26,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .note-red {
     background: red;
 }
+
+.spacer {
+    flex: 1 1 auto;
+  }
+
+@media only screen and (min-width: 1000px) {
+    .card-note-list {
+        margin-right: 150px;
+        margin-left: 150px;
+    }
+}

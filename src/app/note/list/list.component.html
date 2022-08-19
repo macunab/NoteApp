@@ -1,21 +1,35 @@
-<p>Todas las notas</p>
+<div fxLayoutAlign="center">
+    <h2>Todas las notas:</h2>
+</div>
 
 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <div fxLayoutAlign="">
-        <button mat-button color="warn"><mat-icon>add</mat-icon></button>
+    <div>
+        <a mat-button color="warn" routerLink="/notes/create"><mat-icon>add</mat-icon></a>
     </div>
    
-        <mat-form-field appearance="fill" style="width: 30em; margin-right: 5px;">
+        <mat-form-field appearance="fill" style="width: 30em;">
             <input matInput>
             <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
 </div>
 
-<div fxLayout="column" fxLayoutGap="10px" style="margin: 20px;">
+<mat-menu #notesOptions="matMenu">
+    <button mat-menu-item>
+      <mat-icon>delete</mat-icon>
+      <span>Eliminar</span>
+    </button>
+</mat-menu>
+
+<div fxLayout="column" fxLayoutGap="10px" class="card-note-list">
    
         <mat-card class="note" fxFlex="1 1 auto">
             <mat-card-content (click)="selectNote()">
-                <mat-card-title>Titulo Nota 1</mat-card-title>
+                <mat-card-title fxLayoutAlign="space-between center">
+                    Titulo Nota 1 
+                    <button mat-icon-button [matMenuTriggerFor]="notesOptions" aria-label="Example icon-button with a menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                </mat-card-title>
                 <mat-card-subtitle>13 de agosto 2022</mat-card-subtitle>    
             </mat-card-content>
             <mat-card-footer>
@@ -26,8 +40,6 @@
         <mat-card class="note" fxFlex="1 1 auto">
             <mat-card-title>Titulo Nota 2</mat-card-title>
             <mat-card-subtitle>11 de agosto 2022</mat-card-subtitle>
-            <mat-card-actions>
-            </mat-card-actions>
             <mat-card-footer>
                 <div class="note-color {{defaultColor}}"></div>
             </mat-card-footer>
@@ -36,8 +48,6 @@
         <mat-card class="note" fxFlex="1 1 auto">
             <mat-card-title>Titulo Nota 3</mat-card-title>
             <mat-card-subtitle>15 de agosto 2022</mat-card-subtitle>
-            <mat-card-actions>
-            </mat-card-actions>
             <mat-card-footer>
                 <div class="note-color {{redColor}}"></div>
             </mat-card-footer>
