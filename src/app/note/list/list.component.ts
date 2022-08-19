@@ -16,4 +16,8 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  selectNote(){
+    console.log(`The note selected is: 100`);
+  }
+
 }

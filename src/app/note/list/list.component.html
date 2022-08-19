@@ -13,17 +13,17 @@
 
 <div fxLayout="column" fxLayoutGap="10px" style="margin: 20px;">
    
-        <mat-card fxFlex="1 1 auto">
-            <mat-card-title>Titulo Nota 1</mat-card-title>
-            <mat-card-subtitle>13 de agosto 2022</mat-card-subtitle>
-            <mat-card-actions>
-            </mat-card-actions>
+        <mat-card class="note" fxFlex="1 1 auto">
+            <mat-card-content (click)="selectNote()">
+                <mat-card-title>Titulo Nota 1</mat-card-title>
+                <mat-card-subtitle>13 de agosto 2022</mat-card-subtitle>    
+            </mat-card-content>
             <mat-card-footer>
                 <div class="note-color {{defaultColor}}"></div>
             </mat-card-footer>
         </mat-card>
 
-        <mat-card fxFlex="1 1 auto">
+        <mat-card class="note" fxFlex="1 1 auto">
             <mat-card-title>Titulo Nota 2</mat-card-title>
             <mat-card-subtitle>11 de agosto 2022</mat-card-subtitle>
             <mat-card-actions>
@@ -33,7 +33,7 @@
             </mat-card-footer>
         </mat-card>
 
-        <mat-card fxFlex="1 1 auto">
+        <mat-card class="note" fxFlex="1 1 auto">
             <mat-card-title>Titulo Nota 3</mat-card-title>
             <mat-card-subtitle>15 de agosto 2022</mat-card-subtitle>
             <mat-card-actions>
