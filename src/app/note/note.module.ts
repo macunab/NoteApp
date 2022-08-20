@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 import { MaterialModule } from '../material/material.module';
 import { HomeComponent } from './home/home.component';
 import { NoteRoutingModule } from './note-routing.module';
@@ -20,7 +23,9 @@ import { CreateNoteComponent } from './create-note/create-note.component';
     CommonModule,
     FlexLayoutModule,
     MaterialModule,
-    NoteRoutingModule
+    NoteRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class NoteModule { }

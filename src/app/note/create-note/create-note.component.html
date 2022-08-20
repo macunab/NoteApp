@@ -1,1 +1,40 @@
-<p>create-note works!</p>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <a routerLink="" mat-button><mat-icon>arrow_back</mat-icon></a><h2>Nueva Nota:</h2>
+    <p fxFlex.lt-md="20"></p>
+</div>
+<mat-divider></mat-divider>
+<div fxLayout="column" fxLayoutAlign="center center">
+    <form autocomplete="off"
+    [formGroup]="noteForm"
+    (ngSubmit)="saveNote()"
+    class="note-form"
+    fxLayout="column">
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Titulo</mat-label>
+        <input matInput type="text"
+            formControlName="title">
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Nota</mat-label>
+        <textarea matInput formControlName="content"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Categoria</mat-label>
+        <mat-select name="category" formControlName="category">
+          <mat-option value="">
+            Sin categoria
+          </mat-option>
+          <mat-option value="Programacion">
+            Programacion
+          </mat-option>
+          <mat-option value="Tareas">
+            Tareas
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    <button mat-button type="submit">Guardar</button>
+</form>
+</div>
