@@ -5,10 +5,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styles: [
+    `
+    .main-content {
+      padding-top: 100px;
+    }
+
+    .auth-google {
+      margin-top: 20px;
+    }
+    a {
+      text-decoration: none;
+    }
+    `
   ]
 })
 export class LoginComponent implements OnInit {
 
+  // todo validations to api... todo api
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(5)]]
@@ -22,7 +35,11 @@ export class LoginComponent implements OnInit {
   }
 
   loginSubmit() {
-
+    if(this.loginForm.invalid) {
+      console.log('ES INVALIDO');
+      return;
+    }
+    console.log('login');
   }
 
 }
