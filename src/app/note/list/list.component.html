@@ -23,14 +23,14 @@
 <div fxLayout="column" fxLayoutGap="10px" class="card-note-list">
    
         <mat-card fxFlex="1 1 auto">
-            <mat-card-content (click)="selectNote()">
-                <mat-card-title fxLayoutAlign="space-between center">
-                    Titulo Nota 1 
+            <mat-card-content>
+                <mat-card-title fxLayoutAlign="center">
+                    <p fxFlex="grow" (click)="selectNote()">Titulo Nota 1</p> 
                     <button mat-icon-button [matMenuTriggerFor]="notesOptions" aria-label="Example icon-button with a menu">
                     <mat-icon>more_vert</mat-icon>
                   </button>
                 </mat-card-title>
-                <mat-card-subtitle>13 de agosto 2022</mat-card-subtitle>    
+                <mat-card-subtitle (click)="selectNote()">13 de agosto 2022</mat-card-subtitle>    
             </mat-card-content>
             <mat-card-footer>
                 <div class="note-color {{defaultColor}}"></div>

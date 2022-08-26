@@ -1,6 +1,6 @@
 <mat-sidenav-container fullscreen>
 
-    <mat-sidenav #sidenav mode="push">
+    <mat-sidenav #sidenav mode="push" class="side">
         <h1>NoteApp</h1>
         <mat-selection-list [multiple]="false">
             <mat-list-option>
@@ -12,27 +12,17 @@
               <mat-list-option>
                 <a routerLink="" (click)="sidenav.toggle()">Papelera</a>
               </mat-list-option>
-          </mat-selection-list>
-          <mat-divider></mat-divider>
-          <br>
-          <mat-expansion-panel hideToggle>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Categorias
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-selection-list [multiple]="false">
-                <mat-list-option>
-                  <a routerLink="" (click)="sidenav.toggle()">Programacion</a>
-                </mat-list-option>
-                <mat-list-option>
-                    <a routerLink="" (click)="sidenav.toggle()">Compras</a>
-                  </mat-list-option>
-                  <mat-list-option>
-                    <a routerLink="" (click)="sidenav.toggle()">Tareas</a>
-                  </mat-list-option>
-              </mat-selection-list>
-          </mat-expansion-panel>
+            </mat-selection-list>
+            <mat-divider></mat-divider>
+            <br>
+            <div fxLayout="column">
+              <a mat-raised-button routerLink="" (click)="sidenav.toggle()">Administrar categorias</a>
+              <button mat-button [matMenuTriggerFor]="categoriesMenu">Categorias</button>
+              <mat-menu #categoriesMenu="matMenu" class="cat-menu">
+                <a mat-menu-item routerLink="">Programacion</a>
+                <a mat-menu-item routerLink="">Todo</a>
+              </mat-menu>
+          </div>
     </mat-sidenav>
 
     <mat-toolbar>
