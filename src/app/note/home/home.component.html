@@ -16,7 +16,7 @@
             <mat-divider></mat-divider>
             <br>
             <div fxLayout="column">
-              <a mat-raised-button routerLink="" (click)="sidenav.toggle()">Administrar categorias</a>
+              <a mat-raised-button routerLink="categories" (click)="sidenav.toggle()">Administrar categorias</a>
               <button mat-button [matMenuTriggerFor]="categoriesMenu">Categorias</button>
               <mat-menu #categoriesMenu="matMenu" class="cat-menu">
                 <a mat-menu-item routerLink="">Programacion</a>
