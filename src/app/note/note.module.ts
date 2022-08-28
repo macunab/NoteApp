@@ -9,8 +9,8 @@ import { NoteRoutingModule } from './note-routing.module';
 import { ListComponent } from './list/list.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { CreateNoteComponent } from './create-note/create-note.component';
-import { CategorysComponent } from './categorys/categorys.component';
-import { AddCategoryComponent } from './categorys/add-category.component';
+import { CategorysComponent } from './categories/categorys.component';
+import { AddCategoryComponent } from './categories/add-category.component';
 
 
 
