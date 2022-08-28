@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCategoryComponent } from './add-category.component';
 
 @Component({
   selector: 'app-categorys',
@@ -28,9 +30,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategorysComponent implements OnInit {
 
-  constructor() { }
+  constructor( public dialog: MatDialog ) { }
 
   ngOnInit(): void {
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AddCategoryComponent, {
+      width: '350px'
+    });
+    dialogRef.afterClosed().subscribe( result => {
+      console.log('dialog was closed');
+    });
   }
 
 }

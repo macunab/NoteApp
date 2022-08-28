@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
   styles: [
     `
-    /*
+
 .custom-radios div {
   display: inline-block;
-}*/
+}
 .custom-radios input[type="radio"] {
   display: none;
 }
@@ -48,6 +49,18 @@ import { Component, OnInit } from '@angular/core';
 .custom-radios input[type="radio"]#color-4 + label span {
   background-color: #e74c3c;
 }
+.custom-radios input[type="radio"]#color-5+ label span {
+  background-color: #ff00e9;
+}
+.custom-radios input[type="radio"]#color-6+ label span {
+  background-color: #b18021;
+}
+.custom-radios input[type="radio"]#color-7+ label span {
+  background-color: #611986;
+}
+.custom-radios input[type="radio"]#color-8+ label span {
+  background-color: #bbfaa6;
+}
 .custom-radios input[type="radio"]:checked + label span img {
   opacity: 1;
 }
@@ -56,9 +69,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCategoryComponent implements OnInit {
 
-  constructor() { }
+  constructor( public dialogRef: MatDialogRef<AddCategoryComponent>) { }
 
   ngOnInit(): void {
+  }
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 }
