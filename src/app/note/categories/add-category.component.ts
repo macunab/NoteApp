@@ -1,4 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -69,12 +70,28 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class AddCategoryComponent implements OnInit {
 
-  constructor( public dialogRef: MatDialogRef<AddCategoryComponent>) { }
+  categoryForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required]],
+    color: ['color-1', [Validators.required]]
+  });
+
+  constructor( private fb: FormBuilder, 
+    public dialogRef: MatDialogRef<AddCategoryComponent>) { }
 
   ngOnInit(): void {
   }
 
   onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  saveCategory() {
+    if(this.categoryForm.invalid) {
+      console.log('El formulario no es valido');
+      return;
+    }
+    console.log(JSON.stringify(this.categoryForm.value));
+    console.log('Se guardo la categoria');
     this.dialogRef.close();
   }
 
