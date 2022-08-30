@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCategoryComponent } from './add-category.component';
 
+interface Category {
+  id?: string;
+  name: string;
+  color: string;
+}
+
 @Component({
   selector: 'app-categorys',
   templateUrl: './categorys.component.html',
@@ -30,6 +36,21 @@ import { AddCategoryComponent } from './add-category.component';
 })
 export class CategorysComponent implements OnInit {
 
+  categories: Array<Category> = [
+    {
+      name: 'Programacion',
+      color: 'color-1'
+    },
+    {
+      name: 'Compras',
+      color: 'color-4'
+    },
+    {
+      name: 'Otros',
+      color: 'color-2'
+    }
+  ];
+
   constructor( public dialog: MatDialog ) { }
 
   ngOnInit(): void {
@@ -42,6 +63,22 @@ export class CategorysComponent implements OnInit {
     dialogRef.afterClosed().subscribe( result => {
       console.log('dialog was closed');
     });
+  }
+
+  selectCategory(category: Category) {
+    console.log('Se selecciono una categoria para editar');
+    console.log(category);
+    const dialogRef = this.dialog.open(AddCategoryComponent, {
+      width: '350px',
+      data: category
+    });
+    dialogRef.afterClosed().subscribe( result => {
+      console.log('dialog was closed');
+    });
+  }
+
+  delete(category: Category) {
+    console.log(category);
   }
 
 }

@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="center center">
-  <h1 mat-dialog-title>Nueva Categoria:</h1>
+  <h1 mat-dialog-title>{{title}}</h1>
 <div mat-dialog-content>
   <form autocomplete="off"
     (submit)="saveCategory()"
@@ -90,7 +90,6 @@
       <button mat-button (click)="onNoClick()">No Gracias</button>
       <button mat-button type="submit" cdkFocusInitial>Guardar</button>
     </div>
-    <!--<button mat-button type="submit">Guardar</button>--> 
   </form>
 </div>
 </div>

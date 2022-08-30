@@ -6,25 +6,14 @@
 <mat-card class="content">
     <button mat-flat-button (click)="openDialog()">Anadir Categoria</button>
     <mat-list>
-        <mat-list-item>
-            <span class="dot" style=" background-color: #bbfaa6;"></span>
-            <div>
-                CATEGORIA 1
+        <mat-list-item *ngFor="let item of categories">
+            <div  fxLayout="row" fxFlex="grow" (click)="selectCategory(item)">
+                <span class="dot {{item.color}}"></span>
+                <div>
+                    {{item.name}}
+                </div>
             </div>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-            <span class="dot" style="background-color: #d6c2f5;"></span>
-            <div>
-                CATEGORIA 2
-            </div>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-        <mat-list-item>
-            <span class="dot" style="background-color: #fad5af;"></span>
-            <div>
-                CATEGORIA 3
-            </div>
+            <button mat-button (click)="delete(item)">Eliminar</button>
         </mat-list-item>
       </mat-list>
 </mat-card>

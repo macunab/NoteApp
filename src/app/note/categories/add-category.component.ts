@@ -2,12 +2,17 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+export interface Category {
+  id?: string;
+  name: string;
+  color: string;
+}
+
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
   styles: [
     `
-
 .custom-radios div {
   display: inline-block;
 }
@@ -39,28 +44,28 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   transition: all 0.3s ease;
 }
 .custom-radios input[type="radio"]#color-1 + label span {
-  background-color: #2ecc71;
+  background-color: #B5EAD7;
 }
 .custom-radios input[type="radio"]#color-2 + label span {
-  background-color: #3498db;
+  background-color: #C7CEEA;
 }
 .custom-radios input[type="radio"]#color-3 + label span {
-  background-color: #f1c40f;
+  background-color: #E2F0CB;
 }
 .custom-radios input[type="radio"]#color-4 + label span {
-  background-color: #e74c3c;
+  background-color: #FFDAC1;
 }
 .custom-radios input[type="radio"]#color-5+ label span {
-  background-color: #ff00e9;
+  background-color: #FFB7B2;
 }
 .custom-radios input[type="radio"]#color-6+ label span {
-  background-color: #b18021;
+  background-color: #FF9AA2;
 }
 .custom-radios input[type="radio"]#color-7+ label span {
-  background-color: #611986;
+  background-color: #FFD5FA;
 }
 .custom-radios input[type="radio"]#color-8+ label span {
-  background-color: #bbfaa6;
+  background-color: #B79FF1;
 }
 .custom-radios input[type="radio"]:checked + label span img {
   opacity: 1;
@@ -71,14 +76,23 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class AddCategoryComponent implements OnInit {
 
   categoryForm: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
-    color: ['color-1', [Validators.required]]
+    name: [this.data ? this.data.name : '' , [Validators.required]],
+    color: [this.data ? this.data.color : 'color-1', [Validators.required]]
   });
 
+  title: string = '';
+
   constructor( private fb: FormBuilder, 
-    public dialogRef: MatDialogRef<AddCategoryComponent>) { }
+    public dialogRef: MatDialogRef<AddCategoryComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Category) { }
 
   ngOnInit(): void {
+    console.log();
+    if(this.data) {
+      this.title = 'Editar Categoria:';
+    } else {
+      this.title = 'Nueva Categoria:';
+    }
   }
 
   onNoClick(): void {
