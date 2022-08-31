@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CreateNoteComponent } from './create-note/create-note.component';
 import { CategorysComponent } from './categories/categorys.component';
 import { AddCategoryComponent } from './categories/add-category.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 
 
@@ -21,7 +22,8 @@ import { AddCategoryComponent } from './categories/add-category.component';
     ListComponent,
     CreateNoteComponent,
     CategorysComponent,
-    AddCategoryComponent
+    AddCategoryComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,

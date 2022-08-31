@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { AddCategoryComponent } from './add-category.component';
 
 interface Category {
@@ -38,14 +39,17 @@ export class CategorysComponent implements OnInit {
 
   categories: Array<Category> = [
     {
+      id: '1',
       name: 'Programacion',
       color: 'color-1'
     },
     {
+      id: '2',
       name: 'Compras',
       color: 'color-4'
     },
     {
+      id: '3',
       name: 'Otros',
       color: 'color-2'
     }
@@ -66,19 +70,25 @@ export class CategorysComponent implements OnInit {
   }
 
   selectCategory(category: Category) {
-    console.log('Se selecciono una categoria para editar');
-    console.log(category);
     const dialogRef = this.dialog.open(AddCategoryComponent, {
       width: '350px',
       data: category
     });
-    dialogRef.afterClosed().subscribe( result => {
+    /*dialogRef.afterClosed().subscribe( result => {
       console.log('dialog was closed');
-    });
+    });*/
   }
 
   delete(category: Category) {
-    console.log(category);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { type: 'Categoria', id: category.name }
+    });
+    dialogRef.afterClosed().subscribe( result => {
+      if(result.ok){
+        console.log('La categoria se ha eliminado...');
+      }
+    })
   }
 
 }
