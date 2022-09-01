@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
     `
     a {
       text-decoration: none;
+      color: #957DAD;
     }
 
     .side {
@@ -15,6 +16,18 @@ import { Component, OnInit } from '@angular/core';
 
     .cat-menu {
       min-width: 300px;
+    }
+
+    .side-title {
+      margin-top: 20px;
+    }
+
+    .text-pastel-green {
+      color: #FFB7B2;
+    }
+
+    .icon-color {
+      color: #957DAD;
     }
     `
   ]

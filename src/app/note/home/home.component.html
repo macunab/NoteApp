@@ -1,18 +1,23 @@
 <mat-sidenav-container fullscreen>
 
     <mat-sidenav #sidenav mode="push" class="side">
-        <h1>NoteApp</h1>
+      <div fxLayout="column" fxLayoutAlign="center center" class="side-title">
+        <h1 class="text-pastel-green"><mat-icon matListIcon>article</mat-icon>NoteApp</h1>
+      </div>
         <mat-selection-list [multiple]="false">
             <mat-list-option>
+              <mat-icon matListIcon class="icon-color">home</mat-icon>
               <a routerLink="" (click)="sidenav.toggle()">Todas las notas</a>
             </mat-list-option>
             <mat-list-option>
-                <a routerLink="" (click)="sidenav.toggle()">Favoritas</a>
-              </mat-list-option>
-              <mat-list-option>
-                <a routerLink="" (click)="sidenav.toggle()">Papelera</a>
-              </mat-list-option>
-            </mat-selection-list>
+              <mat-icon matListIcon class="icon-color">favorite_outlined</mat-icon>
+              <a routerLink="" (click)="sidenav.toggle()">Favoritas</a>
+            </mat-list-option>
+            <mat-list-option>
+              <mat-icon matListIcon class="icon-color">delete_outlined</mat-icon>
+              <a routerLink="" (click)="sidenav.toggle()">Papelera</a>
+            </mat-list-option>
+        </mat-selection-list>
             <mat-divider></mat-divider>
             <br>
             <div fxLayout="column">

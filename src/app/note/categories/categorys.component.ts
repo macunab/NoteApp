@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { AddCategoryComponent } from './add-category.component';
@@ -35,7 +35,7 @@ interface Category {
     `
   ]
 })
-export class CategorysComponent implements OnInit {
+export class CategorysComponent {
 
   categories: Array<Category> = [
     {
@@ -57,15 +57,9 @@ export class CategorysComponent implements OnInit {
 
   constructor( public dialog: MatDialog ) { }
 
-  ngOnInit(): void {
-  }
-
   openDialog(): void {
     const dialogRef = this.dialog.open(AddCategoryComponent, {
       width: '350px'
-    });
-    dialogRef.afterClosed().subscribe( result => {
-      console.log('dialog was closed');
     });
   }
 
@@ -74,9 +68,6 @@ export class CategorysComponent implements OnInit {
       width: '350px',
       data: category
     });
-    /*dialogRef.afterClosed().subscribe( result => {
-      console.log('dialog was closed');
-    });*/
   }
 
   delete(category: Category) {
