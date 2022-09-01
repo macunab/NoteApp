@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
     `
     a {
       text-decoration: none;
-      color: #957DAD;
+      color: #5A5060;
     }
 
     .side {
@@ -27,7 +27,7 @@ import { Component, OnInit } from '@angular/core';
     }
 
     .icon-color {
-      color: #957DAD;
+      color: #5A5060;
     }
     `
   ]

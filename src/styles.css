@@ -23,10 +23,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background: grey;
 }
 
-.note-red {
-    background: red;
-}
-
 .spacer {
     flex: 1 1 auto;
   }

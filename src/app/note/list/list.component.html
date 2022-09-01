@@ -3,54 +3,42 @@
 </div>
 
 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <div>
-        <a mat-button color="warn" routerLink="/notes/create"><mat-icon>add</mat-icon></a>
-    </div>
+    <a mat-button color="warn" routerLink="/notes/create">
+        <mat-icon>add</mat-icon>
+    </a>
    
-        <mat-form-field appearance="fill" style="width: 30em;">
-            <input matInput>
-            <mat-icon matSuffix>search</mat-icon>
-        </mat-form-field>
+    <mat-form-field appearance="fill" style="width: 20em;" fxLayout="row" fxLayoutAlign="start center">
+        <input matInput>
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
 </div>
 
 <mat-menu #notesOptions="matMenu">
     <button mat-menu-item>
-      <mat-icon>delete</mat-icon>
-      <span>Eliminar</span>
+        <mat-icon>delete</mat-icon>
+        <span>Eliminar</span>
     </button>
 </mat-menu>
 
 <div fxLayout="column" fxLayoutGap="10px" class="card-note-list">
-   
-        <mat-card fxFlex="1 1 auto">
-            <mat-card-content>
-                <mat-card-title fxLayoutAlign="center">
-                    <p fxFlex="grow" (click)="selectNote()">Titulo Nota 1</p> 
-                    <button mat-icon-button [matMenuTriggerFor]="notesOptions" aria-label="Example icon-button with a menu">
+
+    <mat-card fxFlex="1 1 auto" *ngFor="let note of notes">
+        <mat-card-content>
+            <mat-card-title>
+                <p fxFlex="grow" (click)="selectNote()">{{note.title}}</p>
+                <button mat-icon-button [matMenuTriggerFor]="notesOptions" aria-label="Example icon-button with a menu">
                     <mat-icon>more_vert</mat-icon>
-                  </button>
-                </mat-card-title>
-                <mat-card-subtitle (click)="selectNote()">13 de agosto 2022</mat-card-subtitle>    
-            </mat-card-content>
-            <mat-card-footer>
-                <div class="note-color {{defaultColor}}"></div>
-            </mat-card-footer>
-        </mat-card>
+                </button>
+                <mat-checkbox fxLayoutAlign="center center"
+                     [(ngModel)]="note.fav"
+                     (change)="favouriteClick(note);">
+                </mat-checkbox>
+            </mat-card-title>
+            <mat-card-subtitle (click)="selectNote()">{{note.createAt}}</mat-card-subtitle>
+        </mat-card-content>
+        <mat-card-footer>
+            <div [ngClass]="getCategoryColorClass(note)"></div>
+        </mat-card-footer>
+    </mat-card>
 
-        <mat-card fxFlex="1 1 auto">
-            <mat-card-title>Titulo Nota 2</mat-card-title>
-            <mat-card-subtitle>11 de agosto 2022</mat-card-subtitle>
-            <mat-card-footer>
-                <div class="note-color {{defaultColor}}"></div>
-            </mat-card-footer>
-        </mat-card>
-
-        <mat-card fxFlex="1 1 auto">
-            <mat-card-title>Titulo Nota 3</mat-card-title>
-            <mat-card-subtitle>15 de agosto 2022</mat-card-subtitle>
-            <mat-card-footer>
-                <div class="note-color {{redColor}}"></div>
-            </mat-card-footer>
-        </mat-card>
- 
-</div>    
+</div>
