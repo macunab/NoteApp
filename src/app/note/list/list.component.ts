@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormsNoteService } from 'src/app/forms-note.service';
 import { Category } from '../categories/add-category.component';
 
 export interface Note {
@@ -48,17 +50,24 @@ export class ListComponent implements OnInit {
   defaultColor: string = 'note-grey';
   checked: boolean = false;
 
-  constructor() { }
+  constructor( private router: Router, private dataService: FormsNoteService) { }
 
   ngOnInit(): void {
   }
 
-  selectNote(){
+  selectNote(note: Note){
     console.log(`The note selected is: 100`);
+    this.dataService.sendData({ok: true, data: note});
+    this.router.navigateByUrl('/notes/create');
   }
 
   favouriteClick(note: Note) {
     console.log('Se selecciono una nota como favorita...' + this.checked);
+  }
+
+  addNoteButton() {
+    this.dataService.sendData({ ok: false });
+    this.router.navigateByUrl('/notes/create');
   }
 
   getCategoryColorClass(note: Note) {

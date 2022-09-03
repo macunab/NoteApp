@@ -1,9 +1,10 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-    <a routerLink="" mat-button><mat-icon>arrow_back</mat-icon></a><h2>Nueva Nota:</h2>
+    <a routerLink="" mat-button><mat-icon>arrow_back</mat-icon></a><h2>{{ title }}</h2>
     <p fxFlex.lt-md="20"></p>
 </div>
 <mat-divider></mat-divider>
-<div fxLayout="column" fxLayoutAlign="center center">
+<mat-card class="card-note-list">
+  <div fxLayout="column" fxLayoutAlign="center center">
     <form autocomplete="off"
     [formGroup]="noteForm"
     (ngSubmit)="saveNote()"
@@ -17,7 +18,7 @@
     
     <mat-form-field appearance="fill">
         <mat-label>Nota</mat-label>
-        <textarea matInput formControlName="content"></textarea>
+        <textarea matInput formControlName="content" rows="15"></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
@@ -32,9 +33,14 @@
           <mat-option value="Tareas">
             Tareas
           </mat-option>
+          <mat-option value="Otros">
+            otros
+          </mat-option>
         </mat-select>
       </mat-form-field>
 
     <button mat-button type="submit">Guardar</button>
 </form>
 </div>
+</mat-card>
+

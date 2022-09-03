@@ -3,9 +3,9 @@
 </div>
 
 <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="10px">
-    <a mat-button color="warn" routerLink="/notes/create">
+    <button mat-button color="warn" (click)="addNoteButton()">
         <mat-icon>add</mat-icon>
-    </a>
+    </button>
    
     <mat-form-field appearance="fill" style="width: 20em;" fxLayout="row" fxLayoutAlign="start center">
         <input matInput>
@@ -25,7 +25,7 @@
     <mat-card fxFlex="1 1 auto" *ngFor="let note of notes">
         <mat-card-content>
             <mat-card-title>
-                <p fxFlex="grow" (click)="selectNote()">{{note.title}}</p>
+                <p fxFlex="grow" (click)="selectNote(note)">{{note.title}}</p>
                 <button mat-icon-button [matMenuTriggerFor]="notesOptions" aria-label="Example icon-button with a menu">
                     <mat-icon>more_vert</mat-icon>
                 </button>
@@ -34,7 +34,7 @@
                      (change)="favouriteClick(note);">
                 </mat-checkbox>
             </mat-card-title>
-            <mat-card-subtitle (click)="selectNote()">{{note.createAt}}</mat-card-subtitle>
+            <mat-card-subtitle (click)="selectNote(note)">{{note.createAt}}</mat-card-subtitle>
         </mat-card-content>
         <mat-card-footer>
             <div [ngClass]="getCategoryColorClass(note)"></div>

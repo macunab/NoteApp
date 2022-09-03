@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormsNoteService, ServiceData } from 'src/app/forms-note.service';
 
 @Component({
   selector: 'app-create-note',
@@ -11,6 +12,23 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   margin-top: 2em;
   width: 100%;
 }
+/*
+.input-paper {
+  background-color: transparent;
+  border: 0px;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  color:gray;
+  cursor:default;
+  border-bottom: 1px solid #C2CDFF;
+  margin-bottom: 10px;
+}
+
+.input-height {
+  height: 30px;
+}*/
   `
   ]
 })
@@ -21,10 +39,24 @@ export class CreateNoteComponent implements OnInit {
     content: [''],
     category: ['']
   });
+  
+  title: string = 'Nueva Nota:'
+  updateData: ServiceData = { ok: false };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private dataService: FormsNoteService) {}
 
   ngOnInit(): void {
+    this.updateData = this.dataService.getUpdateData();
+    //const { title, content, category = ''} = this.updateData.data!;
+    console.log(this.updateData);
+    if(this.updateData.ok){
+      this.title = 'Editar Nota:'
+      this.noteForm.patchValue({
+        title: this.updateData.data!.title,
+        content: this.updateData.data!.content,
+        category: this.updateData.data!.category! ? this.updateData.data!.category!.name : ''
+      })
+    }
   }
 
   saveNote(): void {
