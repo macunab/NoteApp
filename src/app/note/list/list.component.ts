@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FormsNoteService } from 'src/app/forms-note.service';
 import { Category } from '../categories/add-category.component';
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 
 export interface Note {
   id?: string;
@@ -53,7 +55,8 @@ export class ListComponent implements OnInit {
   defaultColor: string = 'note-grey';
   checked: boolean = false;
 
-  constructor( private router: Router, private dataService: FormsNoteService) { }
+  constructor( private router: Router, private dataService: FormsNoteService,
+      public dialog: MatDialog ) { }
 
   ngOnInit(): void {
     this.viewNotes = this.notes;
@@ -90,6 +93,18 @@ export class ListComponent implements OnInit {
       classList = 'note-color note-grey';
     }
       return classList;
+  }
+
+  deleteNote(note: Note) {
+    console.log(note);
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: { type: 'nota', id: note.title }
+    });
+    dialogRef.afterClosed().subscribe( result => {
+      // Delete note
+      console.log('Nota eliminada');
+    });
   }
 
 }

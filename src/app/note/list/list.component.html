@@ -14,10 +14,12 @@
 </div>
 
 <mat-menu #notesOptions="matMenu">
-    <button mat-menu-item>
-        <mat-icon>delete</mat-icon>
-        <span>Eliminar</span>
-    </button>
+    <ng-template matMenuContent let-note="note">
+        <button mat-menu-item (click)="deleteNote(note)">
+            <mat-icon>delete</mat-icon>
+            <span>Eliminar</span>
+        </button>
+    </ng-template>    
 </mat-menu>
 
 <div fxLayout="column" fxLayoutGap="10px" class="card-note-list">
@@ -26,7 +28,8 @@
         <mat-card-content>
             <mat-card-title>
                 <p fxFlex="grow" (click)="selectNote(note)">{{note.title}}</p>
-                <button mat-icon-button [matMenuTriggerFor]="notesOptions" aria-label="Example icon-button with a menu">
+                <button mat-icon-button [matMenuTriggerFor]="notesOptions" aria-label="Example icon-button with a menu"
+                [matMenuTriggerData]="{note: note}">
                     <mat-icon>more_vert</mat-icon>
                 </button>
                 <mat-checkbox fxLayoutAlign="center center"

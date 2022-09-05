@@ -76,7 +76,8 @@ export class CategorysComponent {
       data: { type: 'Categoria', id: category.name }
     });
     dialogRef.afterClosed().subscribe( result => {
-      if(result.ok){
+      if(result && result.ok){
+        // Delete the category...
         console.log('La categoria se ha eliminado...');
       }
     })
