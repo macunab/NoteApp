@@ -47,12 +47,16 @@ export class ListComponent implements OnInit {
       fav: false
     }
   ]
+
+  viewNotes: Array<Note> = [];
+  
   defaultColor: string = 'note-grey';
   checked: boolean = false;
 
   constructor( private router: Router, private dataService: FormsNoteService) { }
 
   ngOnInit(): void {
+    this.viewNotes = this.notes;
   }
 
   selectNote(note: Note){
@@ -68,6 +72,14 @@ export class ListComponent implements OnInit {
   addNoteButton() {
     this.dataService.sendData({ ok: false });
     this.router.navigateByUrl('/notes/create');
+  }
+
+  searchNote(key: Event) {
+    const searchKey = (key.target as HTMLInputElement).value.toLowerCase();
+    if(searchKey.length >= 0){
+      this.viewNotes = this.notes;
+      this.viewNotes = this.viewNotes.filter(q => q.title.toLowerCase().indexOf(searchKey) >= 0);
+    } 
   }
 
   getCategoryColorClass(note: Note) {

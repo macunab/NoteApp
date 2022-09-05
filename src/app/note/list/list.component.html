@@ -8,7 +8,7 @@
     </button>
    
     <mat-form-field appearance="fill" style="width: 20em;" fxLayout="row" fxLayoutAlign="start center">
-        <input matInput>
+        <input matInput (keyup)="searchNote($event)">
         <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
 </div>
@@ -22,7 +22,7 @@
 
 <div fxLayout="column" fxLayoutGap="10px" class="card-note-list">
 
-    <mat-card fxFlex="1 1 auto" *ngFor="let note of notes">
+    <mat-card fxFlex="1 1 auto" *ngFor="let note of viewNotes">
         <mat-card-content>
             <mat-card-title>
                 <p fxFlex="grow" (click)="selectNote(note)">{{note.title}}</p>
