@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { fader, slider } from '../route-animation';
 
 @Component({
   selector: 'app-home',
@@ -30,6 +32,9 @@ import { Component, OnInit } from '@angular/core';
       color: #5A5060;
     }
     `
+  ],
+  animations: [
+    slider
   ]
 })
 export class HomeComponent implements OnInit {
@@ -37,6 +42,11 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  prepareRoute( outlet: RouterOutlet ) {
+    //return (outlet.isActivated ? outlet.activatedRoute : '');
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
   }
 
 }
