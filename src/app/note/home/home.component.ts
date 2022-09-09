@@ -23,11 +23,7 @@ import { fader, slider } from '../route-animation';
     .side-title {
       margin-top: 20px;
     }
-
-    .text-pastel-green {
-      color: #FFB7B2;
-    }
-
+    
     .icon-color {
       color: #5A5060;
     }
