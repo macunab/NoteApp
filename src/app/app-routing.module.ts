@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'notes'
+    redirectTo: 'notes/view/all'
   }
 ];
 

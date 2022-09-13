@@ -7,15 +7,15 @@
         <mat-selection-list [multiple]="false">
             <mat-list-option>
               <mat-icon matListIcon class="icon-color">home</mat-icon>
-              <a routerLink="" (click)="sidenav.toggle()">Todas las notas</a>
+              <a routerLink="view/all" (click)="sidenav.toggle()">Todas las notas</a>
             </mat-list-option>
             <mat-list-option>
               <mat-icon matListIcon class="icon-color">favorite_outlined</mat-icon>
-              <a routerLink="" (click)="sidenav.toggle()">Favoritas</a>
+              <a routerLink="view/favs" (click)="sidenav.toggle()">Favoritas</a>
             </mat-list-option>
             <mat-list-option>
               <mat-icon matListIcon class="icon-color">delete_outlined</mat-icon>
-              <a routerLink="" (click)="sidenav.toggle()">Papelera</a>
+              <a routerLink="view/trash" (click)="sidenav.toggle()">Papelera</a>
             </mat-list-option>
         </mat-selection-list>
             <mat-divider></mat-divider>

@@ -11,7 +11,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent,
     children: [
-      { path: 'all', component: ListComponent, data: { animation: 'isRight' }},
+      { path: 'view/:filterBy', component: ListComponent, data: { animation: 'isRight' }},
       { path: 'create', component: CreateNoteComponent },
       { path: 'categories', component: CategorysComponent },
       { path: 'add-category', component: AddCategoryComponent },

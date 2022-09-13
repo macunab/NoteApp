@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsNoteService } from 'src/app/forms-note.service';
 import { Category } from '../categories/add-category.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -21,6 +21,7 @@ export interface Note {
 })
 export class ListComponent implements OnInit {
 
+  filterBy: string | null = '';
   notes: Array<Note> = [
     {
       title: 'Nota 1',
@@ -56,10 +57,21 @@ export class ListComponent implements OnInit {
   checked: boolean = false;
 
   constructor( private router: Router, private dataService: FormsNoteService,
-      public dialog: MatDialog ) { }
+      public dialog: MatDialog, private route: ActivatedRoute ) { }
 
-  ngOnInit(): void {
-    this.viewNotes = this.notes;
+  ngOnInit(): void {    
+    this.route.paramMap
+      .subscribe( params => {
+        this.viewNotes = this.notes;
+        this.filterBy = params.get('filterBy');
+        if( this.filterBy === 'favs') {
+          this.viewNotes = this.notes.filter( note => note.fav );
+        }
+        if( this.filterBy === 'trash') {
+          // get notes from the db whit the delete flag
+        }
+        console.log(this.filterBy);
+      })
   }
 
   selectNote(note: Note){

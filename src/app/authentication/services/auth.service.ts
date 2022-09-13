@@ -22,4 +22,8 @@ export class AuthService {
   tokenValidation() {
     
   }
+
+  createUser() {
+    
+  }
 }
