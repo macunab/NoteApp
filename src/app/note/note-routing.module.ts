@@ -15,7 +15,7 @@ const routes: Routes = [
       { path: 'create', component: CreateNoteComponent },
       { path: 'categories', component: CategorysComponent },
       { path: 'add-category', component: AddCategoryComponent },
-      { path: '**', redirectTo: 'all' }
+      { path: '**', redirectTo: 'view/:filterBy' }
     ]
    },
    {

@@ -1,0 +1,47 @@
+<mat-card-subtitle>Registre una nueva cuenta de forma rapida y sencilla</mat-card-subtitle>
+<mat-card-content>
+    <form autocomplete="off"
+        [formGroup]="registerForm"
+        (ngSubmit)="registerSubmit()"
+        fxLayout="column">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your name</mat-label>
+            <input matInput placeholder="name" required>
+            <button mat-icon-button matSuffix>
+                <mat-icon>user</mat-icon>
+              </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="pat@example.com" required>
+            <button mat-icon-button matSuffix>
+                <mat-icon>mail</mat-icon>
+              </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Re-enter password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'" required>
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <br>
+        <a mat-button routerLink="login">Ingresar</a>
+        <button mat-button type="submit">Guardar</button>
+    </form>
+    <mat-divider></mat-divider>
+    <div class="auth-google">
+        <a routerLink="">Ingresar con google</a>
+    </div>
+</mat-card-content>
