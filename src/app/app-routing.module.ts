@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { TokenValidationGuard } from './guards/token-validation.guard';
 
 const routes: Routes = [
   {
     path: 'notes',
-    loadChildren: () => import('./note/note.module').then( m => m.NoteModule )
+    loadChildren: () => import('./note/note.module').then( m => m.NoteModule ),
+    canActivate: [TokenValidationGuard],
+    canLoad: [TokenValidationGuard]
   },
   {
     path: 'login',

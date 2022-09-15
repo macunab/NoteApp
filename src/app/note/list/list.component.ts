@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { FormsNoteService } from 'src/app/forms-note.service';
 import { Category } from '../categories/add-category.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
@@ -22,6 +22,7 @@ export interface Note {
 export class ListComponent implements OnInit {
 
   filterBy: string | null = '';
+  title: string = '';
   notes: Array<Note> = [
     {
       title: 'Nota 1',
@@ -48,6 +49,16 @@ export class ListComponent implements OnInit {
       content: '',
       createAt: '21/08/2021',
       fav: false
+    },
+    {
+      title: 'Nota 4',
+      content: 'Contenido de nota 4',
+      createAt: '21/08/2021',
+      fav: false,
+      category: {
+        name: 'Programacion',
+        color: 'color-1'
+      }
     }
   ]
 
@@ -62,15 +73,9 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {    
     this.route.paramMap
       .subscribe( params => {
-        this.viewNotes = this.notes;
         this.filterBy = params.get('filterBy');
-        if( this.filterBy === 'favs') {
-          this.viewNotes = this.notes.filter( note => note.fav );
-        }
-        if( this.filterBy === 'trash') {
-          // get notes from the db whit the delete flag
-        }
-        console.log(this.filterBy);
+        this.title = 'Todas las notas:'
+        this.noteFilterImplementation();
       })
   }
 
@@ -92,7 +97,8 @@ export class ListComponent implements OnInit {
   searchNote(key: Event) {
     const searchKey = (key.target as HTMLInputElement).value.toLowerCase();
     if(searchKey.length >= 0){
-      this.viewNotes = this.notes;
+      this.noteFilterImplementation();
+      //this.viewNotes = this.notes;
       this.viewNotes = this.viewNotes.filter(q => q.title.toLowerCase().indexOf(searchKey) >= 0);
     } 
   }
@@ -117,6 +123,28 @@ export class ListComponent implements OnInit {
       // Delete note
       console.log('Nota eliminada');
     });
+  }
+
+  // opt, many ifs, smell code
+  noteFilterImplementation() {
+    this.viewNotes = this.notes;
+    if( this.filterBy === 'favs') {
+      this.viewNotes = this.notes.filter( note => note.fav );
+      this.title = 'Notas favoritas:'
+    }
+    if( this.filterBy === 'trash') {
+      // get notes from the db whit the delete flag or filter from the array
+      this.title = 'Papelera:'
+    }
+    if( this.filterBy != 'all' && this.filterBy != 'favs' && this.filterBy != 'trash' ) {
+      if(this.filterBy == 'no-category') {
+        this.viewNotes = this.notes.filter( note => note.category == null)
+        this.title = 'Sin Categoria:';
+      } else {
+        this.viewNotes = this.notes.filter( note => note.category?.name == this.filterBy)
+        this.title = this.filterBy!;
+      }
+    }
   }
 
 }

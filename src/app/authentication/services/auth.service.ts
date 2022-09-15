@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,19 +12,20 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  
+  login() {
+    
+  }
+  
+  register() {
+    
+  }
+
   loadToken() {
 
   }
 
-  login() {
-
-  }
-
-  tokenValidation() {
-    
-  }
-
-  createUser() {
-    
+  tokenValidation(): Observable<boolean> {
+    return of(true);
   }
 }

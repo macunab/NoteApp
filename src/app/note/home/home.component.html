@@ -24,8 +24,8 @@
               <a mat-raised-button routerLink="categories" (click)="sidenav.toggle()">Administrar categorias</a>
               <button mat-button [matMenuTriggerFor]="categoriesMenu">Categorias</button>
               <mat-menu #categoriesMenu="matMenu" class="cat-menu">
-                <a mat-menu-item routerLink="">Programacion</a>
-                <a mat-menu-item routerLink="">Todo</a>
+                <a mat-menu-item routerLink="view/Programacion">Programacion</a>
+                <a mat-menu-item routerLink="view/no-category">Sin Categoria</a>
               </mat-menu>
           </div>
     </mat-sidenav>
