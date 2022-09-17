@@ -12,6 +12,7 @@ import { CreateNoteComponent } from './create-note/create-note.component';
 import { CategorysComponent } from './categories/categorys.component';
 import { AddCategoryComponent } from './categories/add-category.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { UserConfigurationComponent } from './user-configuration/user-configuration.component';
 
 
 
@@ -23,7 +24,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     CreateNoteComponent,
     CategorysComponent,
     AddCategoryComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    UserConfigurationComponent
   ],
   imports: [
     CommonModule,

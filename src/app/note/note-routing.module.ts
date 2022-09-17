@@ -5,6 +5,7 @@ import { CategorysComponent } from './categories/categorys.component';
 import { CreateNoteComponent } from './create-note/create-note.component';
 import { HomeComponent } from './home/home.component';
 import { ListComponent } from './list/list.component';
+import { UserConfigurationComponent } from './user-configuration/user-configuration.component';
 
 const routes: Routes = [
   { 
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'create', component: CreateNoteComponent },
       { path: 'categories', component: CategorysComponent },
       { path: 'add-category', component: AddCategoryComponent },
+      { path: 'user-config', component: UserConfigurationComponent },
       { path: '**', redirectTo: 'view/:filterBy' }
     ]
    },

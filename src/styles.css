@@ -66,6 +66,10 @@ main {
     color: #FFB7B2;
   }
 
+  .mg-card {
+    margin-top: 30px;
+  }
+
 @media only screen and (min-width: 1000px) {
     .card-note-list {
         margin-right: 150px;
