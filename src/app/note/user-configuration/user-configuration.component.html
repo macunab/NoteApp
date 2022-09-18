@@ -3,6 +3,8 @@
     <mat-card-subtitle>change your password</mat-card-subtitle>
     <form autocomplete="off"
         class="note-form"
+        [formGroup]="changePasswordForm"
+        (submit)="updatePassword()"
         fxLayout="column">
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Current password</mat-label>
@@ -10,11 +12,11 @@
         </mat-form-field>    
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Password</mat-label>
-            <input matInput type="text">
+            <input matInput type="text" formControlName="password">
         </mat-form-field> 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Confirm new password</mat-label>
-            <input matInput type="text">
+            <input matInput type="text" formControlName="confirmPassword">
         </mat-form-field>
         <button mat-button type="submit">Set New Password</button>
     </form>
