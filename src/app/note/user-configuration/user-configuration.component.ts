@@ -9,7 +9,7 @@ import { CheckPasswordValidator } from 'src/app/authentication/helpers/checkPass
   ]
 })
 export class UserConfigurationComponent implements OnInit {
-
+  
   changePasswordForm: FormGroup = this.fb.group({
     password: ['', [ Validators.required ]],
     confirmPassword: ['', [ Validators.required ]]
@@ -17,7 +17,11 @@ export class UserConfigurationComponent implements OnInit {
   {
     validator: CheckPasswordValidator('password', 'confirmPassword')
   });
-  
+ // validForm: boolean = true;
+  password: boolean = true;
+  newPassword: boolean = true;
+  confirmPassword: boolean = true;
+
   constructor( private fb: FormBuilder ) { }
 
   ngOnInit(): void {

@@ -7,7 +7,7 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Enter your name</mat-label>
-            <input matInput placeholder="name" required>
+            <input matInput placeholder="name" formControlName="name" required>
             <button mat-icon-button matSuffix>
                 <mat-icon>user</mat-icon>
               </button>
@@ -15,7 +15,7 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Enter your email</mat-label>
-            <input matInput placeholder="pat@example.com" required>
+            <input matInput placeholder="pat@example.com" formControlName="email" required>
             <button mat-icon-button matSuffix>
                 <mat-icon>mail</mat-icon>
               </button>
@@ -23,15 +23,15 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Enter your password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" required>
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" required>
+            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label>Re-enter password</mat-label>
-            <input matInput [type]="hide ? 'password' : 'text'" required>
+            <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirmPassword" required>
             <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
               <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>

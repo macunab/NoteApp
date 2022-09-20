@@ -8,16 +8,25 @@
         fxLayout="column">
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Current password</mat-label>
-            <input matInput type="text">
+            <input matInput [type]="password ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="password = !password" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="password">
+                <mat-icon>{{password ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
         </mat-form-field>    
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Password</mat-label>
-            <input matInput type="text" formControlName="password">
+            <input matInput [type]="newPassword ? 'password' : 'text'" formControlName="password">
+            <button mat-icon-button matSuffix (click)="newPassword = !newPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="newPassword">
+                <mat-icon>{{newPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
         </mat-form-field> 
         <mat-form-field appearance="fill" class="full-width">
             <mat-label>Confirm new password</mat-label>
-            <input matInput type="text" formControlName="confirmPassword">
+            <input matInput [type]="confirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+            <button mat-icon-button matSuffix (click)="confirmPassword = !confirmPassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="confirmPassword">
+                <mat-icon>{{confirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
         </mat-form-field>
-        <button mat-button type="submit">Set New Password</button>
+        <button mat-button type="submit" [disabled]="changePasswordForm.invalid">Set New Password</button>
     </form>
 </mat-card>

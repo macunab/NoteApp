@@ -4,3 +4,8 @@ export interface User {
     password?: string;
     active?:boolean;
 }
+
+export interface AuthResponse {
+    ok: boolean;
+    msg: string;
+}

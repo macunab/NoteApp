@@ -1,4 +1,4 @@
-import { FormGroup } from "@angular/forms";
+import { FormGroup } from '@angular/forms';
 
 export function CheckPasswordValidator(controlName: string, matchingControlName: string) {
     return ( formGroup: FormGroup ) => {
