@@ -1,7 +1,7 @@
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 export function CheckPasswordValidator(controlName: string, matchingControlName: string) {
-    return ( formGroup: FormGroup ) => {
+   /* return ( formGroup: FormGroup ) => {
         const control = formGroup.controls[controlName];
         const matchingControl = formGroup.controls[matchingControlName];
         if(matchingControl.errors && !matchingControl.errors['checkPasswordValidator']) {
@@ -11,6 +11,20 @@ export function CheckPasswordValidator(controlName: string, matchingControlName:
             matchingControl.setErrors({ checkPasswordValidator: true });
         } else {
             matchingControl.setErrors(null);
+        }
+    }*/
+    return ( formGroup: AbstractControl ): ValidationErrors | null => {
+        const control = formGroup.get(controlName);
+        const matchingControl = formGroup.get(matchingControlName);
+        if(matchingControl?.errors && !matchingControl.errors['checkPasswordValidator']) {
+            return null;
+        }
+        if( control?.value !== matchingControl?.value) {
+            matchingControl?.setErrors({ checkPasswordValidator: true });
+            return { checkPasswordValidator: true };
+        } else {
+            matchingControl?.setErrors(null);
+            return null;
         }
     }
 }
