@@ -5,7 +5,7 @@
     (submit)="saveCategory()"
     [formGroup]="categoryForm">
     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>Nombre</mat-label>
+      <mat-label>Name</mat-label>
       <input matInput type="text" formControlName="name">
     </mat-form-field>
     <p>Color:</p>
@@ -87,8 +87,8 @@
       </div>
     </div>
     <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">No Gracias</button>
-      <button mat-button type="submit" cdkFocusInitial>Guardar</button>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button mat-button type="submit" [disabled]="categoryForm.invalid" cdkFocusInitial>Save</button>
     </div>
   </form>
 </div>

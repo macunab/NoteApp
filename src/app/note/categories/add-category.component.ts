@@ -89,9 +89,9 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit(): void {
     console.log();
     if(this.data) {
-      this.title = 'Editar Categoria:';
+      this.title = 'Edit Category:';
     } else {
-      this.title = 'Nueva Categoria:';
+      this.title = 'New Category:';
     }
   }
 

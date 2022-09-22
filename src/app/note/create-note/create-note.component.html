@@ -39,7 +39,7 @@
         </mat-select>
       </mat-form-field>
 
-    <button mat-button type="submit">Guardar</button>
+    <button mat-button type="submit" [disabled]="noteForm.invalid">Guardar</button>
 </form>
 </div>
 </mat-card>

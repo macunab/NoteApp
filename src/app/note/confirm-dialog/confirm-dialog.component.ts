@@ -18,8 +18,8 @@ export class ConfirmDialogComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
       @Inject(MAT_DIALOG_DATA) data: DeleteItem) { 
-        this.title = `Eliminar ${data.type}`;
-        this.content = `Esta seguro desea eliminar la ${data.type}: ${data.id}?`;
+        this.title = `Delete ${data.type}`;
+        this.content = `Are you sure you want to delete the ${data.type}: ${data.id}?`;
       }
 
   ngOnInit(): void {

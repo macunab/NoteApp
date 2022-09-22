@@ -73,7 +73,7 @@ export class CategorysComponent {
   delete(category: Category) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
-      data: { type: 'Categoria', id: category.name }
+      data: { type: 'Category', id: category.name }
     });
     dialogRef.afterClosed().subscribe( result => {
       if(result && result.ok){

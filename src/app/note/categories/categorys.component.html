@@ -1,10 +1,10 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-    <a routerLink="" mat-button><mat-icon>arrow_back</mat-icon></a><h2>Administrar categorias:</h2>
+    <a routerLink="" mat-button><mat-icon>arrow_back</mat-icon></a><h2>Manage categories:</h2>
     <p fxFlex.lt-md="20"></p>
 </div>
 <mat-divider></mat-divider>
 <mat-card class="content">
-    <button mat-flat-button (click)="openDialog()">Anadir Categoria</button>
+    <button mat-flat-button (click)="openDialog()">Add Category</button>
     <mat-list>
         <mat-list-item *ngFor="let item of categories">
             <div  fxLayout="row" fxFlex="grow" (click)="selectCategory(item)">
@@ -13,7 +13,7 @@
                     {{item.name}}
                 </div>
             </div>
-            <button mat-button (click)="delete(item)">Eliminar</button>
+            <button mat-icon-button color="warn" (click)="delete(item)"><mat-icon>delete_outline</mat-icon></button>
         </mat-list-item>
       </mat-list>
 </mat-card>
