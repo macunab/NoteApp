@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { CategoriesService } from '../services/categories.service';
 import { AddCategoryComponent } from './add-category.component';
 
 interface Category {
@@ -35,7 +36,7 @@ interface Category {
     `
   ]
 })
-export class CategorysComponent {
+export class CategorysComponent  implements OnInit{
 
   categories: Array<Category> = [
     {
@@ -55,7 +56,14 @@ export class CategorysComponent {
     }
   ];
 
-  constructor( public dialog: MatDialog ) { }
+  constructor( public dialog: MatDialog, private categoriesService: CategoriesService ) { }
+
+  ngOnInit(): void {
+    this.categoriesService.getAllCategories()
+      .subscribe( resp => {
+        console.log( resp );
+      })
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddCategoryComponent, {
