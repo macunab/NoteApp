@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -29,9 +30,17 @@ export class LoginComponent implements OnInit {
 
   hide: boolean = true;
 
-  constructor( private fb: FormBuilder ) { }
+  constructor( private fb: FormBuilder, private authService: AuthService ) { }
 
   ngOnInit(): void {
+  }
+
+  googleLogin() {
+    window.open('http://localhost:4000/auth/google',"mywindow","location=1,status=1,scrollbars=1, width=300,height=300");
+    let listener = window.addEventListener('message', (message) => {
+      console.log(message);
+    });
+
   }
 
   loginSubmit() {

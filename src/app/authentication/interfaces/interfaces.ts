@@ -10,14 +10,9 @@ export interface AuthResponse {
     msg: string;
 }
 
-export interface Category {
-    _id?: string;
-    name: string;
-    color: string;
-}
-
 export interface DataResponse<T> {
     ok: boolean;
     msg: string;
+    token?: string;
     data?: T;
 }

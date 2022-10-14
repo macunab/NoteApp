@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Category, DataResponse } from 'src/app/authentication/interfaces/interfaces';
+import { DataResponse } from 'src/app/authentication/interfaces/interfaces';
 import { catchError, map, of } from 'rxjs';
+import { Category } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriesService {
 
-  baseUrl: string = environment.baseUrl;
+  private baseUrl: string = environment.baseUrl;
 
   constructor(private http: HttpClient) { }
 
