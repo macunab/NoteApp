@@ -36,7 +36,11 @@ export class LoginComponent implements OnInit {
   }
 
   googleLogin() {
-    window.open('http://localhost:4000/auth/google',"mywindow","location=1,status=1,scrollbars=1, width=300,height=300");
+    /**
+     * TODO backend: in the callback redirect and send the token
+     *  frontend: save the token in localstorage.
+     */
+    window.location.href = 'http://localhost:4000/auth/google';
     let listener = window.addEventListener('message', (message) => {
       console.log(message);
     });
