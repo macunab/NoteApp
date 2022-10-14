@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, tap, map, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { DataResponse } from '../interfaces/interfaces';
+import { DataResponse, User } from '../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,8 @@ export class AuthService {
       )
   }
 
-  register() {
-    
+  register(user: User) {
+
   }
 
   loadToken() {
@@ -40,4 +40,5 @@ export class AuthService {
   }
 
   // TODO google auth, https redirect?
+  
 }

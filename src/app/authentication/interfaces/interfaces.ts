@@ -1,8 +1,8 @@
 export interface User {
     name?: string;
-    username: string;
+    email: string;
     password?: string;
-    active?:boolean;
+    googleId?: string;
 }
 
 export interface AuthResponse {

@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       console.log('ES INVALIDO');
       return;
     }
-    console.log('login');
+    console.log(this.loginForm.value);
   }
 
 }
