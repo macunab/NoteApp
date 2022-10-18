@@ -38,7 +38,7 @@ export class NoteService {
     const url: string = `${this.baseUrl}/notes/${note._id}`;
     const { title, content, category } = note;
     return this.http.put<DataResponse<null>>(url, {title, content, category},
-      { headers: this.headers})
+      {headers: this.headers})
       .pipe(
         map( res => res.ok),
         catchError(error => of(error.ok))

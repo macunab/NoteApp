@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { DataResponse } from 'src/app/authentication/interfaces/interfaces';
 import { catchError, map, of } from 'rxjs';
@@ -11,6 +11,8 @@ import { Category } from '../interfaces/interfaces';
 export class CategoriesService {
 
   private baseUrl: string = environment.baseUrl;
+  private headers = new HttpHeaders()
+    .set('x-token', localStorage.getItem('token') || '')
 
   constructor(private http: HttpClient) { }
 
@@ -30,6 +32,15 @@ export class CategoriesService {
       .pipe(
         catchError(res => of(res.ok))
       );
+  }
+
+  updateCategory(category: Category) {
+    const url: string = `${this.baseUrl}/categories/${category._id}`
+    return this.http.put<DataResponse<null>>(url, category)
+      .pipe(
+        map( res => res.ok),
+        catchError(error => of(error.ok))
+      )
   }
 
   deleteCategory(id: string) {

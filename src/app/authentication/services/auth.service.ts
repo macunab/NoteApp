@@ -13,22 +13,33 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  saveToken(response: DataResponse<null>) {
+    if(response.ok) {
+      localStorage.setItem('token', response.token!);
+    }
+  }
+
   
   login(email: string, password: string) {
-    const url: string = `${this.baseUrl}`;
+    const url: string = `${this.baseUrl}/login`;
     const body = { email, password };
     return this.http.post<DataResponse<null>>(url, body)
       .pipe(
-        tap(
-          // SAVE TOKEN in local storage
-        ),
+        tap( res => {
+          this.saveToken(res);
+        }),
         map( res => res.ok),
         catchError(error => of(error.ok))
       )
   }
 
   register(user: User) {
-
+    const url: string = `${ this.baseUrl }/register`;
+    return this.http.post<DataResponse<null>>(url, user)
+      .pipe(
+        map( res => res.ok ),
+        catchError(error => of(error.ok))
+      )
   }
 
   loadToken() {
