@@ -47,7 +47,6 @@ export class CreateNoteComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateData = this.dataService.getUpdateData();
-    //const { title, content, category = ''} = this.updateData.data!;
     if(this.updateData.ok){
       this.title = 'Editar Nota:'
       this.noteForm.patchValue({

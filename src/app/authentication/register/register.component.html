@@ -38,7 +38,7 @@
         </mat-form-field>
         <br>
         <a mat-button routerLink="login">Ingresar</a>
-        <button mat-button type="submit">Guardar</button>
+        <button mat-button type="submit" [disabled]="registerForm.invalid">Guardar</button>
     </form>
     <mat-divider></mat-divider>
     <div class="auth-google">

@@ -21,7 +21,7 @@ export class AuthService {
 
   
   login(email: string, password: string) {
-    const url: string = `${this.baseUrl}/login`;
+    const url: string = `${this.baseUrl}/auth/login`;
     const body = { email, password };
     return this.http.post<DataResponse<null>>(url, body)
       .pipe(
@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   register(user: User) {
-    const url: string = `${ this.baseUrl }/register`;
+    const url: string = `${ this.baseUrl }/users`;
     return this.http.post<DataResponse<null>>(url, user)
       .pipe(
         map( res => res.ok ),
