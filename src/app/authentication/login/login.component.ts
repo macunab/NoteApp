@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ export class LoginComponent implements OnInit {
   });
 
   hide: boolean = true;
+  loading: boolean = false;
 
   constructor( private fb: FormBuilder, private authService: AuthService ) { }
 
@@ -52,6 +54,22 @@ export class LoginComponent implements OnInit {
       console.log('ES INVALIDO');
       return;
     }
+    this.loading = true;
+    const { email, password } = this.loginForm.value;
+    this.authService.login(email, password)
+      .subscribe( res => {
+        if(res) {
+          console.log('EL USUARIO SE LOGUEO EXITOSAMENTE... REDIRECCIONAR AL HOME');
+          Swal.fire('Se ha logueado con exito');
+          this.loading = false;
+          return;
+        }
+        Swal.fire({
+          title: 'El usuario o contrasena no pertenecen a un usuario existente',
+          icon: 'error'
+        })
+        this.loading = false;
+      })
     console.log(this.loginForm.value);
   }
 
