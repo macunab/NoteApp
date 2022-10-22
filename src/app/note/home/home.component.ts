@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { User } from 'src/app/authentication/interfaces/interfaces';
+import { AuthService } from 'src/app/authentication/services/auth.service';
 import { fader, slider } from '../route-animation';
 
 @Component({
@@ -35,9 +37,13 @@ import { fader, slider } from '../route-animation';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  user!: User;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.user = this.authService.getUser();
+    console.log(this.user);
   }
 
   prepareRoute( outlet: RouterOutlet ) {

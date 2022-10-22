@@ -10,20 +10,26 @@ import { DataResponse, User } from '../interfaces/interfaces';
 export class AuthService {
 
   private baseUrl: string = environment.baseUrl;
+  private _user!: User;
 
   constructor(private http: HttpClient) { }
 
-  saveToken(response: DataResponse<null>) {
+  saveToken(response: DataResponse<User>) {
     if(response.ok) {
       localStorage.setItem('token', response.token!);
+      this._user = response.data!;
+      console.log(`THE USER IS: ${this._user.name}`);
     }
   }
 
+  getUser() {
+    return { ...this._user }
+  }
   
   login(email: string, password: string) {
     const url: string = `${this.baseUrl}/auth/login`;
     const body = { email, password };
-    return this.http.post<DataResponse<null>>(url, body)
+    return this.http.post<DataResponse<User>>(url, body)
       .pipe(
         tap( res => {
           this.saveToken(res);

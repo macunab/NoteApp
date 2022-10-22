@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
   hide: boolean = true;
   loading: boolean = false;
 
-  constructor( private fb: FormBuilder, private authService: AuthService ) { }
+  constructor( private fb: FormBuilder, private authService: AuthService, 
+      private route: Router) { }
 
   ngOnInit(): void {
   }
@@ -60,8 +62,9 @@ export class LoginComponent implements OnInit {
       .subscribe( res => {
         if(res) {
           console.log('EL USUARIO SE LOGUEO EXITOSAMENTE... REDIRECCIONAR AL HOME');
-          Swal.fire('Se ha logueado con exito');
+         // Swal.fire('Se ha logueado con exito');
           this.loading = false;
+          this.route.navigateByUrl('home')
           return;
         }
         Swal.fire({

@@ -36,7 +36,7 @@
             <mat-icon>menu</mat-icon>
         </button>
         <span class="spacer"></span>
-        <button mat-button [matMenuTriggerFor]="userOptions">Username</button>
+        <button mat-button [matMenuTriggerFor]="userOptions">{{user.name}}</button>
     </mat-toolbar>
 
     <mat-menu #userOptions="matMenu">
