@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of, tap, map, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -48,12 +48,18 @@ export class AuthService {
       )
   }
 
-  loadToken() {
-
-  }
-
   tokenValidation(): Observable<boolean> {
-    return of(true);
+    const url: string = `${ this.baseUrl }/auth/verify`;
+    const headers = new HttpHeaders()
+      .set('x-token', localStorage.getItem('token') || '');
+    return this.http.get<DataResponse<User>>(url, { headers })
+      .pipe(
+        tap( res => {
+          this.saveToken(res);
+        }),
+        map( res => res.ok),
+        catchError( err => of(err.ok))
+      )
   }
 
   // TODO google auth, https redirect?
