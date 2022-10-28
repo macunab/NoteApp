@@ -19,7 +19,7 @@ export class CategoriesService {
   //TODO headers for all functions, first complete auth service
   getAllCategories() {
     const url: string = `${this.baseUrl}/categories`
-    return this.http.get<DataResponse<Category>>(url)
+    return this.http.get<DataResponse<Category>>(url, { headers: this.headers})
       .pipe(
         map( resp => resp.data),
         catchError(error => of(error.ok))
@@ -28,8 +28,9 @@ export class CategoriesService {
 
   createCategory(category: Category) {
     const url: string = `${this.baseUrl}/categories`;
-    return this.http.post<DataResponse<null>>(url, category)
+    return this.http.post<DataResponse<null>>(url, category, { headers: this.headers })
       .pipe(
+        map( res => res.ok ),
         catchError(res => of(res.ok))
       );
   }

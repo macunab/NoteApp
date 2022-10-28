@@ -1,6 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CategoriesService } from '../services/categories.service';
+import Swal from 'sweetalert2';
 
 export interface Category {
   id?: string;
@@ -84,7 +86,8 @@ export class AddCategoryComponent implements OnInit {
 
   constructor( private fb: FormBuilder, 
     public dialogRef: MatDialogRef<AddCategoryComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Category) { }
+    @Inject(MAT_DIALOG_DATA) public data: Category,
+    private categoryService: CategoriesService) { }
 
   ngOnInit(): void {
     console.log();
@@ -106,7 +109,24 @@ export class AddCategoryComponent implements OnInit {
     }
     console.log(JSON.stringify(this.categoryForm.value));
     console.log('Se guardo la categoria');
-    this.dialogRef.close();
+    try {
+      this.categoryService.createCategory(this.categoryForm.value)
+        .subscribe( res => {
+          if(res) {
+            this.dialogRef.close(this.categoryForm.value);
+            Swal.fire({
+              title: 'Categoria creada con exito',
+              icon: 'success'
+            })
+          }
+        })
+    } catch(error) {
+      this.dialogRef.close();
+      Swal.fire({
+        title: `Ups ha ocurrido un error al intentar guardar la categoria, error: ${ error }`,
+        icon: 'error'
+      })
+    }
   }
 
 }

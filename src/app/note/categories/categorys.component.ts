@@ -67,8 +67,14 @@ export class CategorysComponent  implements OnInit{
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddCategoryComponent, {
-      width: '350px'
+      width: '350px',
+      data: {}
     });
+    dialogRef.afterClosed().subscribe( result => {
+      console.log(result);
+      this.categories.push(result);
+      this.categories = [ ...this.categories ];
+    })
   }
 
   selectCategory(category: Category) {
