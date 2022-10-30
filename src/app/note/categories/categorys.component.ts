@@ -68,7 +68,6 @@ export class CategorysComponent  implements OnInit{
       data: {}
     });
     dialogRef.afterClosed().subscribe( result => {
-      console.log(result);
       if(result){
         this.categories.push(result);
         this.categories = [ ...this.categories ];
@@ -82,7 +81,9 @@ export class CategorysComponent  implements OnInit{
       data: category
     });
     dialogRef.afterClosed().subscribe( result => {
-      console.log('Se updateo la categoria');
+      if(result == undefined) {
+        return;
+      }
       const index = this.categories.findIndex(val => val._id === result._id);
       (index !== -1) ? this.categories[index] = result : '';
     });
