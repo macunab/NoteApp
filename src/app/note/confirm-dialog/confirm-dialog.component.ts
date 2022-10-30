@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Category } from '../interfaces/interfaces';
 
 export interface DeleteItem {
   type: string;
-  id: string;
+  category: Category;
 }
 @Component({
   selector: 'app-confirm-dialog',
@@ -15,18 +16,20 @@ export class ConfirmDialogComponent implements OnInit {
 
   title: string = '';
   content: string = ''
+  id: string = '';
 
   constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>,
       @Inject(MAT_DIALOG_DATA) data: DeleteItem) { 
         this.title = `Delete ${data.type}`;
-        this.content = `Are you sure you want to delete the ${data.type}: ${data.id}?`;
+        this.content = `Are you sure you want to delete the ${data.type}: ${data.category.name}?`;
+        this.id = data.category._id!;
       }
 
   ngOnInit(): void {
   }
 
   confirm() {
-    this.dialogRef.close({ ok: true });
+    this.dialogRef.close({ ok: true, id: this.id});
   }
 
   cancel() {

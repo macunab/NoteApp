@@ -46,7 +46,7 @@ export class CategoriesService {
 
   deleteCategory(id: string) {
     const url: string = `${this.baseUrl}/categories/${id}`;
-    return this.http.delete<DataResponse<null>>(url)
+    return this.http.delete<DataResponse<null>>(url, { headers: this.headers })
       .pipe(
         catchError(res => of(res.ok))
       );

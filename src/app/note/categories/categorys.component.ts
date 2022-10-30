@@ -3,12 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { CategoriesService } from '../services/categories.service';
 import { AddCategoryComponent } from './add-category.component';
+import Swal from 'sweetalert2';
+import { Category } from '../interfaces/interfaces';
 
-interface Category {
-  id?: string;
-  name: string;
-  color: string;
-}
 
 @Component({
   selector: 'app-categorys',
@@ -40,17 +37,17 @@ export class CategorysComponent  implements OnInit{
 
   categories: Array<Category> = [
     {
-      id: '1',
+      _id: '1',
       name: 'Programacion',
       color: 'color-1'
     },
     {
-      id: '2',
+      _id: '2',
       name: 'Compras',
       color: 'color-4'
     },
     {
-      id: '3',
+      _id: '3',
       name: 'Otros',
       color: 'color-2'
     }
@@ -61,7 +58,7 @@ export class CategorysComponent  implements OnInit{
   ngOnInit(): void {
     this.categoriesService.getAllCategories()
       .subscribe( resp => {
-        console.log( resp );
+        this.categories = resp;
       })
   }
 
@@ -72,8 +69,10 @@ export class CategorysComponent  implements OnInit{
     });
     dialogRef.afterClosed().subscribe( result => {
       console.log(result);
-      this.categories.push(result);
-      this.categories = [ ...this.categories ];
+      if(result){
+        this.categories.push(result);
+        this.categories = [ ...this.categories ];
+      }
     })
   }
 
@@ -82,17 +81,33 @@ export class CategorysComponent  implements OnInit{
       width: '350px',
       data: category
     });
+    dialogRef.afterClosed().subscribe( result => {
+      console.log('Se updateo la categoria');
+    });
   }
 
   delete(category: Category) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
-      data: { type: 'Category', id: category.name }
+      data: { type: 'Category', category: category }
     });
     dialogRef.afterClosed().subscribe( result => {
       if(result && result.ok){
-        // Delete the category...
-        console.log('La categoria se ha eliminado...');
+        this.categoriesService.deleteCategory(result.id)
+          .subscribe( res => {
+            if(res) {
+              this.categories = this.categories.filter( val => val._id !== result.id);
+              Swal.fire({
+                title: 'Se ha eliminado la categoria exitosamente',
+                icon: 'success'
+              });
+            } else {
+              Swal.fire({
+                title: 'Ups ha ocurrido un error mientras se intentaba eliminar la categoria',
+                icon: 'error'
+              });
+            }
+          });
       }
     })
   }
