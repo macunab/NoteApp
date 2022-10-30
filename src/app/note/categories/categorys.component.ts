@@ -83,6 +83,8 @@ export class CategorysComponent  implements OnInit{
     });
     dialogRef.afterClosed().subscribe( result => {
       console.log('Se updateo la categoria');
+      const index = this.categories.findIndex(val => val._id === result._id);
+      (index !== -1) ? this.categories[index] = result : '';
     });
   }
 

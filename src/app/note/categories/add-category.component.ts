@@ -3,12 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoriesService } from '../services/categories.service';
 import Swal from 'sweetalert2';
-
-export interface Category {
-  id?: string;
-  name: string;
-  color: string;
-}
+import { Category } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-add-category',
@@ -92,6 +87,7 @@ export class AddCategoryComponent implements OnInit {
   ngOnInit(): void {
     console.log();
     if(this.data) {
+      console.log(this.data._id)
       this.title = 'Edit Category:';
     } else {
       this.title = 'New Category:';
@@ -107,10 +103,10 @@ export class AddCategoryComponent implements OnInit {
       console.log('El formulario no es valido');
       return;
     }
-    console.log(JSON.stringify(this.categoryForm.value));
     console.log('Se guardo la categoria');
     try {
-      this.categoryService.createCategory(this.categoryForm.value)
+      if(!this.data) {
+        this.categoryService.createCategory(this.categoryForm.value)
         .subscribe( res => {
           if(res) {
             this.dialogRef.close(this.categoryForm.value);
@@ -120,6 +116,28 @@ export class AddCategoryComponent implements OnInit {
             })
           }
         })
+      } else {
+        console.log('UPDATE')
+        const categoryUpdate: Category = this.categoryForm.value;
+        categoryUpdate._id = this.data._id;
+        this.categoryService.updateCategory(categoryUpdate)
+          .subscribe( res => {
+            if(res) {
+              this.dialogRef.close(categoryUpdate);
+              Swal.fire({
+                title: 'La categoria se ha actualizado con exito',
+                icon: 'success'
+              })
+            } else {
+              this.dialogRef.close();
+              Swal.fire({
+                title: 'Ups ha ocurrido un error al intentar actualizar una categoria',
+                icon: 'error'
+              })
+            }
+          })
+      }
+      
     } catch(error) {
       this.dialogRef.close();
       Swal.fire({

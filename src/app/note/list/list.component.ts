@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormsNoteService } from 'src/app/forms-note.service';
-import { Category } from '../categories/add-category.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { Category } from '../interfaces/interfaces';
 
 export interface Note {
   id?: string;

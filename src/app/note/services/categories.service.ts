@@ -37,7 +37,7 @@ export class CategoriesService {
 
   updateCategory(category: Category) {
     const url: string = `${this.baseUrl}/categories/${category._id}`
-    return this.http.put<DataResponse<null>>(url, category)
+    return this.http.put<DataResponse<null>>(url, category, { headers: this.headers })
       .pipe(
         map( res => res.ok),
         catchError(error => of(error.ok))
