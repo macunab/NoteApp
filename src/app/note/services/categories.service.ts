@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { DataResponse } from 'src/app/authentication/interfaces/interfaces';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { Category } from '../interfaces/interfaces';
 
 @Injectable({
@@ -16,7 +16,6 @@ export class CategoriesService {
 
   constructor(private http: HttpClient) { }
 
-  //TODO headers for all functions, first complete auth service
   getAllCategories() {
     const url: string = `${this.baseUrl}/categories`
     return this.http.get<DataResponse<Category>>(url, { headers: this.headers})
@@ -28,10 +27,12 @@ export class CategoriesService {
 
   createCategory(category: Category) {
     const url: string = `${this.baseUrl}/categories`;
-    return this.http.post<DataResponse<null>>(url, category, { headers: this.headers })
+    return this.http.post<DataResponse<Category>>(url, category, { headers: this.headers })
       .pipe(
-        map( res => res.ok ),
-        catchError(res => of(res.ok))
+        catchError( res => {
+          //console.log(`EL VALOR DE LA RES ES: ${JSON.stringify(res.error)}`);
+          return of(res.ok);
+        })
       );
   }
 

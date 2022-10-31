@@ -74,7 +74,7 @@ export class AddCategoryComponent implements OnInit {
 
   categoryForm: FormGroup = this.fb.group({
     name: [this.data ? this.data.name : '' , [Validators.required]],
-    color: [this.data ? this.data.color : 'color-1', [Validators.required]]
+    color: [this.data._id ? this.data.color : 'color-1', [Validators.required]]
   });
 
   title: string = '';
@@ -104,8 +104,8 @@ export class AddCategoryComponent implements OnInit {
       if(!this.data._id) {
         this.categoryService.createCategory(this.categoryForm.value)
         .subscribe( res => {
-          if(res) {
-            this.dialogRef.close(this.categoryForm.value);
+          if(res.ok) {
+            this.dialogRef.close(res.data);
             Swal.fire({
               title: 'Categoria creada con exito',
               icon: 'success'

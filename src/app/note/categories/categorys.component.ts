@@ -35,23 +35,9 @@ import { Category } from '../interfaces/interfaces';
 })
 export class CategorysComponent  implements OnInit{
 
-  categories: Array<Category> = [
-    {
-      _id: '1',
-      name: 'Programacion',
-      color: 'color-1'
-    },
-    {
-      _id: '2',
-      name: 'Compras',
-      color: 'color-4'
-    },
-    {
-      _id: '3',
-      name: 'Otros',
-      color: 'color-2'
-    }
-  ];
+  categories: Array<Category> = [];
+  loadingData: boolean = true;
+  emptyData: boolean = false;
 
   constructor( public dialog: MatDialog, private categoriesService: CategoriesService ) { }
 
@@ -59,6 +45,8 @@ export class CategorysComponent  implements OnInit{
     this.categoriesService.getAllCategories()
       .subscribe( resp => {
         this.categories = resp;
+        this.loadingData = false;
+        //this.emptyData = !(this.categories.length > 0);
       })
   }
 

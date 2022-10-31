@@ -5,15 +5,21 @@
 <mat-divider></mat-divider>
 <mat-card class="content">
     <button mat-flat-button (click)="openDialog()">Add Category</button>
-    <mat-list>
-        <mat-list-item *ngFor="let item of categories">
-            <div  fxLayout="row" fxFlex="grow" (click)="selectCategory(item)">
-                <span class="dot {{item.color}}"></span>
-                <div>
-                    {{item.name}}
+    <div *ngIf="loadingData">
+        <h1>Loading data...</h1>
+    </div>
+    <ng-template [ngIf]="categories.length">
+        <mat-list>
+            <mat-list-item *ngFor="let item of categories">
+                <div  fxLayout="row" fxFlex="grow" (click)="selectCategory(item)">
+                    <span class="dot {{item.color}}"></span>
+                    <div>
+                        {{item.name}}
+                    </div>
                 </div>
-            </div>
-            <button mat-icon-button color="warn" (click)="delete(item)"><mat-icon>delete_outline</mat-icon></button>
-        </mat-list-item>
-      </mat-list>
+                <button mat-icon-button color="warn" (click)="delete(item)"><mat-icon>delete_outline</mat-icon></button>
+            </mat-list-item>
+          </mat-list>
+    </ng-template>
+    
 </mat-card>
