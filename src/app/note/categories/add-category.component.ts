@@ -85,9 +85,7 @@ export class AddCategoryComponent implements OnInit {
     private categoryService: CategoriesService) { }
 
   ngOnInit(): void {
-    console.log(this.data);
     if(this.data._id) {
-      console.log(this.data._id)
       this.title = 'Edit Category:';
     } else {
       this.title = 'New Category:';
@@ -100,10 +98,8 @@ export class AddCategoryComponent implements OnInit {
 
   saveCategory() {
     if(this.categoryForm.invalid) {
-      console.log('El formulario no es valido');
       return;
     }
-    console.log('Se guardo la categoria');
     try {
       if(!this.data._id) {
         this.categoryService.createCategory(this.categoryForm.value)
@@ -117,7 +113,6 @@ export class AddCategoryComponent implements OnInit {
           }
         })
       } else {
-        console.log('UPDATE')
         const categoryUpdate: Category = this.categoryForm.value;
         categoryUpdate._id = this.data._id;
         this.categoryService.updateCategory(categoryUpdate)
