@@ -78,6 +78,7 @@ export class AddCategoryComponent implements OnInit {
   });
 
   title: string = '';
+  loadingApiResponse: boolean = false;
 
   constructor( private fb: FormBuilder, 
     public dialogRef: MatDialogRef<AddCategoryComponent>,
@@ -100,12 +101,14 @@ export class AddCategoryComponent implements OnInit {
     if(this.categoryForm.invalid) {
       return;
     }
+    this.loadingApiResponse = true;
     try {
       if(!this.data._id) {
         this.categoryService.createCategory(this.categoryForm.value)
         .subscribe( res => {
           if(res.ok) {
             this.dialogRef.close(res.data);
+            this.loadingApiResponse = false;
             Swal.fire({
               title: 'Categoria creada con exito',
               icon: 'success'
@@ -119,20 +122,21 @@ export class AddCategoryComponent implements OnInit {
           .subscribe( res => {
             if(res) {
               this.dialogRef.close(categoryUpdate);
+              this.loadingApiResponse = false;
               Swal.fire({
                 title: 'La categoria se ha actualizado con exito',
                 icon: 'success'
               })
             } else {
               this.dialogRef.close();
+              this.loadingApiResponse = false;
               Swal.fire({
                 title: 'Ups ha ocurrido un error al intentar actualizar una categoria',
                 icon: 'error'
               })
             }
           })
-      }
-      
+      }  
     } catch(error) {
       this.dialogRef.close();
       Swal.fire({

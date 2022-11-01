@@ -53,7 +53,6 @@ export class LoginComponent implements OnInit {
 
   loginSubmit() {
     if(this.loginForm.invalid) {
-      console.log('ES INVALIDO');
       return;
     }
     this.loading = true;
@@ -61,8 +60,6 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password)
       .subscribe( res => {
         if(res) {
-          console.log('EL USUARIO SE LOGUEO EXITOSAMENTE... REDIRECCIONAR AL HOME');
-         // Swal.fire('Se ha logueado con exito');
           this.loading = false;
           this.route.navigateByUrl('home')
           return;
@@ -73,7 +70,6 @@ export class LoginComponent implements OnInit {
         })
         this.loading = false;
       })
-    console.log(this.loginForm.value);
   }
 
 }

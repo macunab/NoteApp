@@ -46,18 +46,20 @@ export class CategorysComponent  implements OnInit{
       .subscribe( resp => {
         this.categories = resp;
         this.loadingData = false;
-        //this.emptyData = !(this.categories.length > 0);
+        this.emptyData = !(this.categories.length > 0);
       })
   }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddCategoryComponent, {
       width: '350px',
+      height: '450px',
       data: {}
     });
     dialogRef.afterClosed().subscribe( result => {
       if(result){
         this.categories.push(result);
+        this.emptyData = !(this.categories.length > 0);
         this.categories = [ ...this.categories ];
       }
     })
@@ -92,6 +94,7 @@ export class CategorysComponent  implements OnInit{
                 title: 'Se ha eliminado la categoria exitosamente',
                 icon: 'success'
               });
+              this.emptyData = !(this.categories.length > 0);
             } else {
               Swal.fire({
                 title: 'Ups ha ocurrido un error mientras se intentaba eliminar la categoria',

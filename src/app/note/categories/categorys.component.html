@@ -5,8 +5,12 @@
 <mat-divider></mat-divider>
 <mat-card class="content">
     <button mat-flat-button (click)="openDialog()">Add Category</button>
-    <div *ngIf="loadingData">
-        <h1>Loading data...</h1>
+    <div *ngIf="emptyData" fxLayout="row" fxLayoutAlign="center center">
+        <h2 class="sub-text">No categories found...</h2>
+    </div>
+    <div *ngIf="loadingData" fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner
+        color="accent"></mat-spinner>
     </div>
     <ng-template [ngIf]="categories.length">
         <mat-list>

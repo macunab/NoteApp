@@ -88,7 +88,8 @@
     </div>
     <div mat-dialog-actions>
       <button mat-button type="button" (click)="onNoClick()">Cancel</button>
-      <button mat-button type="submit" [disabled]="categoryForm.invalid">Save</button>
+      <button mat-raised-button type="submit" [disabled]="categoryForm.invalid"
+      color="primary" [class.spinner]="loadingApiResponse" [disabled]="loadingApiResponse">Save</button>
     </div>
   </form>
 </div>

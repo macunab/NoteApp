@@ -96,3 +96,7 @@ main {
   border-top-color: #000000;
   animation: spinner .8s linear infinite;
 }
+
+.sub-text {
+  color: #a9a9a9;
+}
