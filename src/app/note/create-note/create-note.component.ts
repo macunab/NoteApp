@@ -44,11 +44,12 @@ export class CreateNoteComponent implements OnInit {
       })
     this.updateData = this.dataService.getUpdateData();
     if(this.updateData.ok){
+      console.log(this.updateData.data?.category?.name);
       this.title = 'Editar Nota:'
       this.noteForm.patchValue({
         title: this.updateData.data!.title,
         content: this.updateData.data!.content,
-        category: this.updateData.data!.category! ? this.updateData.data!.category!.name : ''
+        category: this.updateData.data!.category ? this.updateData.data!.category._id : ''
       })
     }
   }

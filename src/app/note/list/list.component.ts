@@ -50,7 +50,19 @@ export class ListComponent implements OnInit {
   }
 
   favouriteClick(note: Note) {
-    console.log('Se selecciono una nota como favorita...' + this.checked);
+    this.noteService.checkFavouriteOption(note._id!, note.fav!)
+      .subscribe( res => {
+        if(res) {
+          return;
+        }
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'An error occurred while trying to contact the servers',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      })
   }
 
   addNoteButton() {
@@ -88,12 +100,13 @@ export class ListComponent implements OnInit {
       this.noteService.deleteNote(result.id)
         .subscribe( resp => {
           if(resp) {
+            this.viewNotes = this.viewNotes.filter(val => val._id !== result.id);
             Swal.fire({
               position: 'top-end',
               icon: 'success',
               title: 'A note has been deleted successfully',
               showConfirmButton: false,
-              timer: 2500
+              timer: 2000
             })
             return;
           }

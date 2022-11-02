@@ -54,7 +54,12 @@ export class NoteService {
       )
   }
 
-  checkFavourite(id: string, fav: boolean) {
-
+  checkFavouriteOption(id: string, fav: boolean) {
+    const url: string = `${this.baseUrl}/notes/${id}/${fav}`;
+    return this.http.get<DataResponse<null>>(url, { headers: this.headers})
+      .pipe(
+        map(res => res.ok),
+        catchError(error => of(error.ok))
+      )
   }
 }
