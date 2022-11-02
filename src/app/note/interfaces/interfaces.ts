@@ -9,4 +9,6 @@ export interface Note {
     title: string;
     content: string;
     category?: Category;
+    fav?: boolean;
+    createdAt?: string;
 }

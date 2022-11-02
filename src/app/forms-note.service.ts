@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { Note } from './note/list/list.component';
+import { Note } from './note/interfaces/interfaces';
 
 export interface ServiceData {
   ok: boolean;

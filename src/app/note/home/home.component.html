@@ -41,7 +41,7 @@
 
     <mat-menu #userOptions="matMenu">
       <a mat-menu-item routerLink="user-config">Configuracion</a>
-      <a mat-menu-item routerLink="/login">Salir</a>
+      <a mat-menu-item (click)="logout()">Salir</a>
     </mat-menu>
 
     <main [@routeAnimations]="prepareRoute(outlet)">

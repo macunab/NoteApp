@@ -27,15 +27,11 @@
           <mat-option value="">
             Sin categoria
           </mat-option>
-          <mat-option value="Programacion">
-            Programacion
-          </mat-option>
-          <mat-option value="Tareas">
-            Tareas
-          </mat-option>
-          <mat-option value="Otros">
-            otros
-          </mat-option>
+          <div *ngFor="let category of categories">
+            <mat-option value="{{ category._id }}">
+              {{category.name}}
+            </mat-option>
+          </div>
         </mat-select>
       </mat-form-field>
 

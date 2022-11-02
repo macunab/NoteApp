@@ -3,16 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsNoteService } from 'src/app/forms-note.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { Category } from '../interfaces/interfaces';
-
-export interface Note {
-  id?: string;
-  title: string;
-  content: string;
-  createAt: string;
-  fav: boolean;
-  category?: Category;
-}
+import { Note } from '../interfaces/interfaces';
+import { NoteService } from '../services/note.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-list',
@@ -24,42 +17,6 @@ export class ListComponent implements OnInit {
   filterBy: string | null = '';
   title: string = '';
   notes: Array<Note> = [
-    {
-      title: 'Nota 1',
-      content: 'Contenido de nota 1',
-      createAt: '13/07/2021',
-      fav: false,
-      category: {
-        name: 'Programacion',
-        color: 'color-1'
-      }
-    },
-    {
-      title: 'Nota 2',
-      content: 'Contenido de nota 2',
-      createAt: '17/08/2021',
-      fav: true,
-      category: {
-        name: 'Otros',
-        color: 'color-6'
-      }
-    },
-    {
-      title: 'Nota 3',
-      content: '',
-      createAt: '21/08/2021',
-      fav: false
-    },
-    {
-      title: 'Nota 4',
-      content: 'Contenido de nota 4',
-      createAt: '21/08/2021',
-      fav: false,
-      category: {
-        name: 'Programacion',
-        color: 'color-1'
-      }
-    }
   ]
 
   viewNotes: Array<Note> = [];
@@ -68,14 +25,21 @@ export class ListComponent implements OnInit {
   checked: boolean = false;
 
   constructor( private router: Router, private dataService: FormsNoteService,
-      public dialog: MatDialog, private route: ActivatedRoute ) { }
+      public dialog: MatDialog, private route: ActivatedRoute,
+      private noteService: NoteService ) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.route.paramMap
       .subscribe( params => {
         this.filterBy = params.get('filterBy');
         this.title = 'Todas las notas:'
+        this.noteService.getAllNotes()
+      .subscribe(resp => {
+        this.notes =  resp;
+        console.log(this.notes)
         this.noteFilterImplementation();
+      })
+        
       })
   }
 
@@ -98,7 +62,6 @@ export class ListComponent implements OnInit {
     const searchKey = (key.target as HTMLInputElement).value.toLowerCase();
     if(searchKey.length >= 0){
       this.noteFilterImplementation();
-      //this.viewNotes = this.notes;
       this.viewNotes = this.viewNotes.filter(q => q.title.toLowerCase().indexOf(searchKey) >= 0);
     } 
   }
@@ -114,18 +77,35 @@ export class ListComponent implements OnInit {
   }
 
   deleteNote(note: Note) {
-    console.log(note);
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '350px',
-      data: { type: 'nota', id: note.title }
+      data: { type: 'nota', name: note.title, id: note._id }
     });
     dialogRef.afterClosed().subscribe( result => {
-      // Delete note
-      console.log('Nota eliminada');
+      if(!result.ok){
+        return;
+      }
+      this.noteService.deleteNote(result.id)
+        .subscribe( resp => {
+          if(resp) {
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'A note has been deleted successfully',
+              showConfirmButton: false,
+              timer: 2500
+            })
+            return;
+          }
+          Swal.fire({
+            title: 'An erro ocurred while trying delete a note',
+            icon: 'error'
+          });
+        })
     });
   }
 
-  // opt, many ifs, smell code
+  // opt, many ifs, smell code --- no trash
   noteFilterImplementation() {
     this.viewNotes = this.notes;
     if( this.filterBy === 'favs') {

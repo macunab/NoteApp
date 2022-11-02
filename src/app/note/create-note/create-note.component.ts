@@ -1,6 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormsNoteService, ServiceData } from 'src/app/forms-note.service';
+import { Category, Note } from '../interfaces/interfaces';
+import { CategoriesService } from '../services/categories.service';
+import { NoteService } from '../services/note.service';
 
 @Component({
   selector: 'app-create-note',
@@ -12,23 +16,6 @@ import { FormsNoteService, ServiceData } from 'src/app/forms-note.service';
   margin-top: 2em;
   width: 100%;
 }
-/*
-.input-paper {
-  background-color: transparent;
-  border: 0px;
-  outline: none;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  color:gray;
-  cursor:default;
-  border-bottom: 1px solid #C2CDFF;
-  margin-bottom: 10px;
-}
-
-.input-height {
-  height: 30px;
-}*/
   `
   ]
 })
@@ -39,13 +26,22 @@ export class CreateNoteComponent implements OnInit {
     content: [''],
     category: ['']
   });
+
+  categories: Array<Category> = [];
   
   title: string = 'Nueva Nota:'
   updateData: ServiceData = { ok: false };
+  loadingSaveData: boolean = false;
 
-  constructor(private fb: FormBuilder, private dataService: FormsNoteService) {}
+  constructor(private fb: FormBuilder, private dataService: FormsNoteService,
+      private noteService: NoteService, private categoryService: CategoriesService,
+      private router: Router) {}
 
   ngOnInit(): void {
+    this.categoryService.getAllCategories()
+      .subscribe(resp => {
+        this.categories = resp;
+      })
     this.updateData = this.dataService.getUpdateData();
     if(this.updateData.ok){
       this.title = 'Editar Nota:'
@@ -59,13 +55,26 @@ export class CreateNoteComponent implements OnInit {
 
   saveNote(): void {
     console.log(this.noteForm.value);
-    const notaCompleta = {
+    const note: Note = {
       ...this.noteForm.value,
-      categoria: 'lalala',
-      estado: 10,
-      favorito: false
     };
-    console.log(`nota completa: ${JSON.stringify(notaCompleta)}`);
+    note.category = this.categories.find(val => val._id == note.category);
+    if(this.updateData.ok) {
+      note._id = this.updateData.data?._id;
+      this.noteService.updateNote(note)
+        .subscribe( resp => {
+         if(resp) {
+          this.router.navigateByUrl('view/all');
+         }
+        });
+      return;
+    }
+    this.noteService.createNote(note)
+      .subscribe(resp => {
+        if(resp) {
+          this.router.navigateByUrl('view/all');
+        }
+      })
   }
 
 }

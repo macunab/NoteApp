@@ -30,7 +30,6 @@ export class CategoriesService {
     return this.http.post<DataResponse<Category>>(url, category, { headers: this.headers })
       .pipe(
         catchError( res => {
-          //console.log(`EL VALOR DE LA RES ES: ${JSON.stringify(res.error)}`);
           return of(res.ok);
         })
       );

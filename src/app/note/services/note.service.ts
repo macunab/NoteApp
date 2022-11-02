@@ -14,11 +14,11 @@ export class NoteService {
   private headers = new HttpHeaders()
     .set('x-token', localStorage.getItem('token') || '');
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllNotes() {
     const url: string = `${this.baseUrl}/notes`;
-    return this.http.get<DataResponse<Note>>(url)
+    return this.http.get<DataResponse<Note>>(url, { headers: this.headers })
       .pipe(
         map( res => res.data ),
         catchError( error => of(error.ok))
@@ -27,7 +27,7 @@ export class NoteService {
 
   createNote(note: Note) {
     const url: string = `${this.baseUrl}/notes`;
-    return this.http.post<DataResponse<null>>(url, note)
+    return this.http.post<DataResponse<null>>(url, note, { headers: this.headers })
       .pipe(
         map( res => res.ok),
         catchError(error => of(error.ok))
@@ -47,11 +47,14 @@ export class NoteService {
 
   deleteNote(id: string) {
     const url: string = `${this.baseUrl}/notes/${id}`;
-    return this.http.delete<DataResponse<null>>(url)
+    return this.http.delete<DataResponse<null>>(url, { headers: this.headers })
       .pipe(
         map( res => res.ok),
         catchError( error => of(error.ok))
       )
+  }
+
+  checkFavourite(id: string, fav: boolean) {
 
   }
 }
