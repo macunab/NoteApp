@@ -3,6 +3,8 @@ import { Router, RouterOutlet } from '@angular/router';
 import { User } from 'src/app/authentication/interfaces/interfaces';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { fader, slider } from '../route-animation';
+import { CategoriesService } from '../services/categories.service';
+import { Category } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-home',
@@ -38,12 +40,17 @@ import { fader, slider } from '../route-animation';
 export class HomeComponent implements OnInit {
 
   user!: User;
+  categories: Array<Category> =[];
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router,
+      private categoryService: CategoriesService) { }
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
-    console.log(this.user);
+    this.categoryService.getAllCategories()
+      .subscribe(res => {
+        this.categories = res;
+      })
   }
 
   logout() {

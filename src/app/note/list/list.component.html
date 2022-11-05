@@ -25,7 +25,7 @@
 <div fxLayout="column" fxLayoutGap="10px" class="card-note-list">   
 
     <div fxLayoutAlign="center center" *ngIf="viewNotes.length == 0">
-        <h2>No se ha encontrado ningun resultado</h2>
+        <h2 class="sub-text">No notes found...</h2>
     </div>
 
     <mat-card fxFlex="1 1 auto" *ngFor="let note of viewNotes">

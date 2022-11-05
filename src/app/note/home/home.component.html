@@ -13,10 +13,6 @@
               <mat-icon matListIcon class="icon-color">favorite_outlined</mat-icon>
               <a routerLink="view/favs" (click)="sidenav.toggle()">Favoritas</a>
             </mat-list-option>
-            <mat-list-option>
-              <mat-icon matListIcon class="icon-color">delete_outlined</mat-icon>
-              <a routerLink="view/trash" (click)="sidenav.toggle()">Papelera</a>
-            </mat-list-option>
         </mat-selection-list>
             <mat-divider></mat-divider>
             <br>
@@ -24,8 +20,10 @@
               <a mat-raised-button routerLink="categories" (click)="sidenav.toggle()">Administrar categorias</a>
               <button mat-button [matMenuTriggerFor]="categoriesMenu">Categorias</button>
               <mat-menu #categoriesMenu="matMenu" class="cat-menu">
-                <a mat-menu-item routerLink="view/Programacion">Programacion</a>
-                <a mat-menu-item routerLink="view/no-category">Sin Categoria</a>
+                <a mat-menu-item routerLink="view/all">Sin Categoria</a>
+                <div *ngFor="let category of categories">
+                  <a mat-menu-item routerLink="view/{{category.name}}">{{category.name}}</a>
+                </div>
               </mat-menu>
           </div>
     </mat-sidenav>
