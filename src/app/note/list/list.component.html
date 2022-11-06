@@ -22,9 +22,14 @@
     </ng-template>    
 </mat-menu>
 
-<div fxLayout="column" fxLayoutGap="10px" class="card-note-list">   
+<div fxLayout="column" fxLayoutGap="10px" class="card-note-list">
 
-    <div fxLayoutAlign="center center" *ngIf="viewNotes.length == 0">
+    <div *ngIf="loadingNotes" fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner
+        color="accent"></mat-spinner>
+    </div>
+
+    <div fxLayoutAlign="center center" *ngIf="viewNotes.length == 0 && !loadingNotes">
         <h2 class="sub-text">No notes found...</h2>
     </div>
 

@@ -20,6 +20,7 @@ export class ListComponent implements OnInit {
   ]
 
   viewNotes: Array<Note> = [];
+  loadingNotes: boolean = false;
   
   defaultColor: string = 'note-grey';
   checked: boolean = false;
@@ -31,20 +32,22 @@ export class ListComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap
       .subscribe( params => {
+        this.viewNotes = [];
         this.filterBy = params.get('filterBy');
         this.title = 'Todas las notas:'
+        this.loadingNotes = true;
         this.noteService.getAllNotes()
       .subscribe(resp => {
         this.notes =  resp;
         console.log(this.notes)
         this.noteFilterImplementation();
+        this.loadingNotes = false;
       })
         
       })
   }
 
   selectNote(note: Note){
-    console.log(`The note selected is: 100`);
     this.dataService.sendData({ok: true, data: note});
     this.router.navigateByUrl('/notes/create');
   }
