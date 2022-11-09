@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoriesService } from '../services/categories.service';
 import Swal from 'sweetalert2';
 import { Category } from '../interfaces/interfaces';
+import { CategoryValidatorService } from '../services/category-validator.service';
 
 @Component({
   selector: 'app-add-category',
@@ -73,7 +74,7 @@ import { Category } from '../interfaces/interfaces';
 export class AddCategoryComponent implements OnInit {
 
   categoryForm: FormGroup = this.fb.group({
-    name: [this.data ? this.data.name : '' , [Validators.required]],
+    name: [this.data ? this.data.name : '' , [Validators.required], !this.data._id ? [this.nameValidator] : []],
     color: [this.data._id ? this.data.color : 'color-1', [Validators.required]]
   });
 
@@ -83,7 +84,8 @@ export class AddCategoryComponent implements OnInit {
   constructor( private fb: FormBuilder, 
     public dialogRef: MatDialogRef<AddCategoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Category,
-    private categoryService: CategoriesService) { }
+    private categoryService: CategoriesService,
+    private nameValidator: CategoryValidatorService) { }
 
   ngOnInit(): void {
     if(this.data._id) {
