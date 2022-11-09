@@ -11,6 +11,8 @@ export class AuthService {
 
   private baseUrl: string = environment.baseUrl;
   private _user!: User;
+  private headers = new HttpHeaders()
+  .set('x-token', localStorage.getItem('token') || '');
 
   constructor(private http: HttpClient) { }
 
@@ -50,9 +52,7 @@ export class AuthService {
 
   tokenValidation(): Observable<boolean> {
     const url: string = `${ this.baseUrl }/auth/verify`;
-    const headers = new HttpHeaders()
-      .set('x-token', localStorage.getItem('token') || '');
-    return this.http.get<DataResponse<User>>(url, { headers })
+    return this.http.get<DataResponse<User>>(url, { headers : this.headers })
       .pipe(
         tap( res => {
           this.saveToken(res);
@@ -61,6 +61,15 @@ export class AuthService {
         catchError( err => of(err.ok))
       )
   }
+
+  updatePassword(password: string) {
+    const url: string = `${ this.baseUrl }/users/update-psw`;
+    return this.http.put<DataResponse<null>>(url, { password }, { headers: this.headers })
+      .pipe(
+        map( res => res.ok),
+        catchError( err => of(err.ok))
+      )  
+  } 
 
   // TODO google auth, https redirect?
   

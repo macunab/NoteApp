@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CheckPasswordValidator } from 'src/app/authentication/helpers/checkPassword.validator';
 import { AuthService } from 'src/app/authentication/services/auth.service';
 import { PasswordValidatorService } from 'src/app/authentication/services/password-validator.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-user-configuration',
@@ -35,9 +36,29 @@ export class UserConfigurationComponent implements OnInit {
     if(this.changePasswordForm.invalid) {
       return;
     }
-    console.log('Password will be updated');
     const { password } = this.changePasswordForm.value;
-    console.log(password);
+    this.authService.updatePassword(password)
+      .subscribe(res => {
+        if(res) {
+          this.changePasswordForm.reset();
+          this.changePasswordForm.markAllAsTouched();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'User password change successfully',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          return;
+        }
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'An error occurred while trying to contact the servers',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      })
   }
 
 }
