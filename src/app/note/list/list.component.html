@@ -46,7 +46,7 @@
                      (change)="favouriteClick(note);">
                 </mat-checkbox>
             </mat-card-title>
-            <mat-card-subtitle (click)="selectNote(note)">{{note.createdAt}}</mat-card-subtitle>
+            <mat-card-subtitle (click)="selectNote(note)">{{note.createdAt | date:'short'}}</mat-card-subtitle>
         </mat-card-content>
         <mat-card-footer>
             <div [ngClass]="getCategoryColorClass(note)"></div>
