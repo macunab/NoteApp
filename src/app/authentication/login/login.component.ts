@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
+
+declare const google: any;
 
 @Component({
   selector: 'app-login',
@@ -22,9 +25,10 @@ import { Router } from '@angular/router';
     `
   ]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit{
 
-  // todo validations to api... todo api
+  @ViewChild('googleBtn') googleBtn!: ElementRef;
+
   loginForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(5)]]
@@ -39,16 +43,23 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  googleLogin() {
-    /**
-     * TODO backend: in the callback redirect and send the token
-     *  frontend: save the token in localstorage.
-     */
-    window.location.href = 'http://localhost:4000/auth/google';
-    let listener = window.addEventListener('message', (message) => {
-      console.log(message);
-    });
+  ngAfterViewInit(): void {
+    this.googleLogin();
+  }
 
+  googleLogin() {
+    google.accounts.id.initialize({
+      client_id: environment.googleID,
+      callback: (response: any) => this.handleCredentialResponse(response)
+    });
+    google.accounts.id.renderButton(
+      this.googleBtn.nativeElement,
+      { theme: "outline", size: "large" }  // customization attributes
+    );
+  }
+
+  handleCredentialResponse( response: any ) {
+    console.log(response.credential);
   }
 
   loginSubmit() {

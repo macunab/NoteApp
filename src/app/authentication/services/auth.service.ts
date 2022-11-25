@@ -69,8 +69,9 @@ export class AuthService {
         map( res => res.ok),
         catchError( err => of(err.ok))
       )  
-  } 
+  }
 
-  // TODO google auth, https redirect?
-  
+  googleLogin(token: string) {
+
+  }  
 }
