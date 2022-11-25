@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:4000',
-  googleID: '747818640891-sp3idrq8lcn6626r0ts1ns1k2q4c6al9.apps.googleusercontent.com',
-  googleSecret: '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'
+  googleID: '',
+  googleSecret: ''
 };
 
 /*

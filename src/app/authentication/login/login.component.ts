@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, NgZone } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import Swal from 'sweetalert2';
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit, AfterViewInit{
   loading: boolean = false;
 
   constructor( private fb: FormBuilder, private authService: AuthService, 
-      private route: Router) { }
+      private route: Router, private ngZone: NgZone) { }
 
   ngOnInit(): void {
   }
@@ -60,6 +60,15 @@ export class LoginComponent implements OnInit, AfterViewInit{
 
   handleCredentialResponse( response: any ) {
     console.log(response.credential);
+    this.authService.googleLogin(response.credential)
+      .subscribe( resp => {
+        console.log(resp);
+        if(resp.ok) {
+          this.ngZone.run( () => {
+            this.route.navigateByUrl('home');
+          })
+        }
+      })
   }
 
   loginSubmit() {

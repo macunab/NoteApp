@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { User } from 'src/app/authentication/interfaces/interfaces';
 import { AuthService } from 'src/app/authentication/services/auth.service';
-import { fader, slider } from '../route-animation';
+import { slider } from '../route-animation';
 import { CategoriesService } from '../services/categories.service';
 import { Category } from '../interfaces/interfaces';
 
@@ -54,9 +54,9 @@ export class HomeComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
-    this.router.navigateByUrl('login');
+    this.authService.logout();
   }
+
 
   prepareRoute( outlet: RouterOutlet ) {
     //return (outlet.isActivated ? outlet.activatedRoute : '');

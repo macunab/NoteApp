@@ -7,7 +7,7 @@ const routes: Routes = [
     path: 'notes',
     loadChildren: () => import('./note/note.module').then( m => m.NoteModule ),
     canActivate: [TokenValidationGuard],
-    canLoad: [TokenValidationGuard]
+    //canLoad: [TokenValidationGuard]
   },
   {
     path: 'login',

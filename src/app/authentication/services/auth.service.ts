@@ -1,8 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, of, tap, map, catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DataResponse, User } from '../interfaces/interfaces';
+declare const google: any;
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,9 @@ export class AuthService {
   private headers = new HttpHeaders()
   .set('x-token', localStorage.getItem('token') || '');
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router,
+              private ngZone: NgZone) { }
 
   saveToken(response: DataResponse<User>) {
     if(response.ok) {
@@ -34,6 +38,7 @@ export class AuthService {
     return this.http.post<DataResponse<User>>(url, body)
       .pipe(
         tap( res => {
+          console.log('Se ejecuto el LOGIN NORMAL');
           this.saveToken(res);
         }),
         map( res => res.ok),
@@ -72,6 +77,30 @@ export class AuthService {
   }
 
   googleLogin(token: string) {
+    const url: string = `${ this.baseUrl }/auth/login/google`;
+    return this.http.post<DataResponse<User>>(url, { token })
+      .pipe(
+        tap( resp => {
+          console.log('Se ejecuto el GOOGLE LOGIN ');
+          this.saveToken(resp);
+        })
+      )
+  }
 
-  }  
+  logout() {
+    localStorage.clear();
+    console.log('USUARIO DE AUTH: ' + JSON.stringify(this._user))
+    this._user.email = '';
+    if(this._user.googleId){
+      console.log('El USUARIO ES DE GOOGLE');
+      google.accounts.id.revoke('mn.acunab@gmail.com', () => {
+        this.ngZone.run(() => {
+          this.router.navigateByUrl('login');
+        })
+    });
+    } else {
+      this.router.navigateByUrl('login');
+    }
+   
+  }
 }
